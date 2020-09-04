@@ -1,0 +1,16 @@
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";
+
+.fitnessplan {
+text-align: center;
+}
+
+.fitnessplan-top {
+  margin: 0 0 3em;
+}
+
+.fitness-calendar {
+  margin: 0 auto;
+  max-width: 900px;
+}
