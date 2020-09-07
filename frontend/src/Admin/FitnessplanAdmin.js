@@ -3,6 +3,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../Fitnessplan.css";
 
 export default class FitnessplanAdmin extends Component {
@@ -14,8 +16,6 @@ this.state = {
     course: {
       title: "",
       date:"",
-      price:"",
-      description:"",
     },
     calendarWeekends: true,
     allDay: true,
@@ -27,7 +27,7 @@ this.state = {
 }
 
   componentDidMount() {
-    fetch("http://localhost:9000/api/fitness")
+    fetch("http://localhost:9000/api/courses")
       .then((response) => response.json())
       .then((course) => {
         this.setState({ courses: course });
@@ -47,6 +47,11 @@ this.state = {
         <div>
         <button onClick={this.toggleWeekends} className="button add" >Ohne Wochenenden</button>&nbsp;
           {/* <button onClick={this.gotoPast}>go to a date in the past</button> */}
+        </div>
+        <div>
+          <Link className="create-link" to={"/AddCourseDate"}>
+            <Button className="button add">Add</Button>
+          </Link>
         </div>
         </div>
         <div className="fitness-calendar">

@@ -12,7 +12,10 @@ app.use(cors());
 // add routes
 const routerUser = require("./routes/routerUser.js");
 const routerFitness = require("./routes/routerFitness.js");
+const routerEvents = require("./routes/routerEvents.js");
 app.use("/api", routerUser);
 app.use("/api", routerFitness);
+app.use("/api", routerEvents);
 // run server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

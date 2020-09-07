@@ -8,8 +8,10 @@ import Home from "./Home";
 import FitnessplanAdmin from "./Admin/FitnessplanAdmin";
 import FitnessInfoAdmin from "./Admin/FitnessInfoAdmin";
 import AddCourse from "./Admin/AddCourse";
+import AddCourseDate from "./Admin/AddCourseDate";
 import EditCourse from "./Admin/EditCourse";
 import ProtectedRouteAdd from "./Admin/ProtectedRouteAdd";
+import ProtectedRouteAddDate from "./Admin/ProtectedRouteAddDate";
 import ProtectedRouteEdit from "./Admin/ProtectedRouteEdit";
 import ProtectedRouteFitness from "./Admin/ProtectedRouteFitness";
 import ProtectedRouteFitnessplan from "./Admin/ProtectedRouteFitnessplan";
@@ -110,6 +112,9 @@ class App extends Component {
               <ProtectedRouteAdd path="/AddCourse">
                 <AddCourse />
               </ProtectedRouteAdd>
+              <ProtectedRouteAddDate path="/AddCourseDate">
+                <AddCourseDate />
+              </ProtectedRouteAddDate>
               <Route path="/SignUp">
                 <SignUp />
               </Route>

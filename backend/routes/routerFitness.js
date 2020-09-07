@@ -10,14 +10,6 @@ routerFitness.get("/fitness", (req, res) => {
   });
 });
 
-//Creating GET Router to fetch all the events from Database for the Calendar
-routerFitness.get("/fitnessevents", (req, res) => {
-  db.query("SELECT * FROM events", (err, rows, fields) => {
-    if(!err) res.send(rows);
-    else console.log(err);
-  });
-});
-
 //Router to GET specific learner detail from the MySQL database
 routerFitness.get("/fitness/:id", (req, res) => {
   db.query(
@@ -45,6 +37,7 @@ routerFitness.post("/addCourse", (req, res) => {
     res.redirect("/api/fitness");
   });
 });
+
 
 //route for insert data into event
 routerFitness.post("/addEvent", (req, res) => {

@@ -19,7 +19,7 @@ export default class EditCourse extends Component {
       courses: [],
       course: {
         date: "",
-        endDate:"",
+        endDate: "",
         title: "",
         price: null,
         description: "",
@@ -39,7 +39,7 @@ export default class EditCourse extends Component {
   }
 
   onChangeCourseDate(e) {
-    this.setState({ Date: e.target.value });
+    this.setState({ date: e.target.value });
   }
 
   onChangeCourseEndDate(e) {
@@ -66,7 +66,7 @@ export default class EditCourse extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        Date: this.state.Date,
+        date: this.state.date,
         endDate: this.state.endDate,
         title: this.state.title,
         price: this.state.price,
@@ -97,10 +97,10 @@ export default class EditCourse extends Component {
             key={course.id}
             type="date"
             className="form-control"
-            id="startdatum"
+            id="datum"
             defaultValue={course.date}
             onChange={this.onChangeCourseDate}
-            name="Date"
+            name="date"
           />
         ))}
       </div>
