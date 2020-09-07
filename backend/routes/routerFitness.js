@@ -57,7 +57,6 @@ routerFitness.post("/addEvent", (req, res) => {
 
 routerFitness.put("/fitness/:id", function (req, res) {
   let data = {
-    // date: req.body.date,
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,

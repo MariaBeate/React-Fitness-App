@@ -3,19 +3,29 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { Button } from "react-bootstrap";
+//import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+//import  Modal  from 'react-bootstrap/Modal';
+//import ModalHeader from 'react-bootstrap/ModalHeader';
+//import ModalBody from 'react-bootstrap/ModalBody';
+//import ModalFooter from 'react-bootstrap/ModalFooter';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "../Fitnessplan.css";
 
 export default class FitnessplanAdmin extends Component {
 calendarComponentRef = React.createRef();
 constructor(props) {
 super(props);
+this._deleteCourse = this._deleteCourse.bind(this);
+
 this.state = {
     courses: [],
-    course: {
+    event: {
+      id: "",
       title: "",
       date:"",
+
+      response: {},
     },
     calendarWeekends: true,
     allDay: true,
@@ -29,14 +39,46 @@ this.state = {
   componentDidMount() {
     fetch("http://localhost:9000/api/courses")
       .then((response) => response.json())
-      .then((course) => {
-        this.setState({ courses: course });
+      .then((event) => {
+        this.setState({ courses: event });
       });
   }
 
+  _deleteCourse(id) {
+    const { courses } = this.state;
+    fetch("http://localhost:9000/api/courses/" + id, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+        this.setState({
+          courses: courses.filter((event) => event.id !== id),
+        });
+        return;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    //    fitness.preventDefault();
+
+    console.log("Deleted");
+  }
+
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+  
+  handleEventClick = ({ event, el }) => {
+    this.toggle();
+    this.setState({ event });
+  };
+  
+
   render() {
-    const{ courses } = this.state;
-    console.log(courses)
     return (
       <div className="fitnessplan">
         <div className="heading">
@@ -54,16 +96,10 @@ this.state = {
           </Link>
         </div>
         </div>
+
         <div className="fitness-calendar">
           <FullCalendar
             defaultView="dayGridMonth"
-            eventClick={
-              function(arg){
-                alert(
-                  'Alert Title',
-                );
-              }
-            }
             header={{
               left: "prev,next today",
               center: "title",
@@ -82,47 +118,42 @@ this.state = {
             //events={this.state.calendarEvents}
             events={this.state.courses}    //Funktioniert theoretisch. 
             dateClick={this.handleDateClick}
-
-            
-            
- 
+            onDelete={this.handleDelete}
+            eventClick = {this.handleEventClick}
+            height='parent'
           />
+          <Modal
+              isOpen={this.state.modal}
+              toggle={this.toggle}
+            >
+              <ModalHeader toggle={this.toggle}>
+                
+                <p>Kursname:{this.state.event.title}</p>
+              </ModalHeader>
+              <ModalBody>
+                <div>
+                 <p> Datum: {this.state.event.date} </p>
+                 <p> ID: {this.state.event.id} </p>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+              <Link className="edit-link" to={"/EditCourseDate/" + this.state.event.id}>
+                    <Button className="button edit">Edit</Button>
+              </Link>
+              <Button className="button delete" variant="danger" onClick={() => this._deleteCourse(this.state.event.id)}>
+                    Delete
+                  </Button>
+                <Button color="secondary" onClick={this.toggle}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Modal>
         </div>
        </div>
     );
   }
 
-  // handleEventClick = (info) => {
-  //   alert('Event: ' + info.event.name);
-  // }
-
-  // handleDateClick = (selectInfo) => {
-  //   let name = prompt('Please enter a new name for your event')
-  //   let calendarApi = selectInfo.view.calendar
-
-  //   //calendarApi.unselect() // clear date selection
-
-  //   if (name) {
-  //     calendarApi.addEvent({
-  //       id:"",
-  //       name,
-  //       start: selectInfo.startStr,
-  //       end: selectInfo.endStr,
-  //       allDay: selectInfo.allDay
-  //     })
-  //   }
-  // }
-
-  // renderEventContent(eventInfo) {
-  //   return (
-  //     <>
-  //       <b>{"hey"}</b>
-  //       <i>{"hu"}</i>
-  //     </>
-  //   )
-  // }
-  
-
+ 
   toggleWeekends = () => {
     this.setState({
       // update a property
@@ -151,4 +182,38 @@ this.state = {
       });
     }
   }; 
-}
+ /*  handleDelete = eventId => {
+    const events = this.state.events.filter(e => e.id !== eventId);
+    this.setState({ events });
+    };*/
+} 
+
+ // handleEventClick = (info) => {
+  //   alert('Event: ' + info.event.name);
+  // }
+
+  // handleDateClick = (selectInfo) => {
+  //   let name = prompt('Please enter a new name for your event')
+  //   let calendarApi = selectInfo.view.calendar
+
+  //   //calendarApi.unselect() // clear date selection
+
+  //   if (name) {
+  //     calendarApi.addEvent({
+  //       id:"",
+  //       name,
+  //       start: selectInfo.startStr,
+  //       end: selectInfo.endStr,
+  //       allDay: selectInfo.allDay
+  //     })
+  //   }
+  // }
+
+  // renderEventContent(eventInfo) {
+  //   return (
+  //     <>
+  //       <b>{"hey"}</b>
+  //       <i>{"hu"}</i>
+  //     </>
+  //   )
+  // }
