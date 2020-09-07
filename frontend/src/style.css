@@ -104,6 +104,10 @@ table#info tr:nth-child(even) {
   padding: 10px 35px;
   margin-top: 20px;
 }
+.modal {
+border: 3px solid #ffa600; 
+background-color: #ffa600;
+}
 
 /* Login.css */
 

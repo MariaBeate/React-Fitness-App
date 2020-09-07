@@ -14,7 +14,6 @@ import EditCourseDate from "./Admin/EditCourseDate";
 import ProtectedRouteAdd from "./Admin/ProtectedRouteAdd";
 import ProtectedRouteAddDate from "./Admin/ProtectedRouteAddDate";
 import ProtectedRouteEdit from "./Admin/ProtectedRouteEdit";
-import ProtectedRouteEditDate from "./Admin/ProtectedRouteEditDate";
 import ProtectedRouteFitness from "./Admin/ProtectedRouteFitness";
 import ProtectedRouteFitnessplan from "./Admin/ProtectedRouteFitnessplan";
 import FitnessInfoUser from "./User/FitnessInfoUser";
@@ -129,18 +128,18 @@ class App extends Component {
                   isLoggedIn={this.state.isLoggedIn}
                 />
               </Route>
-
-              <ProtectedRouteEditDate
-            path="/EditCourseDate/:id"
-            render={(props) => <EditCourseDate {...props} />}
-          />
-              <ProtectedRouteEditDate />
               <ProtectedRouteEdit
                 path="/EditCourse/:id"
                 render={(props) => <EditCourse {...props} />}
               />
               <ProtectedRouteEdit />
-
+              </Switch>
+              <Switch>
+              <Route 
+              path="/EditCourseDate/:id" 
+              render={(props) => <EditCourseDate {...props} />}
+            >
+              </Route>
               </Switch>
           </div>
         </div>

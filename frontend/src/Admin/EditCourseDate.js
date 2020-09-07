@@ -69,12 +69,13 @@ export default class EditCourseDate extends Component {
       });
 
     console.log("Edited");
+    console.log(this.state.selectedCourse);
   }
 
   //Hier müssen noch Name, Preis und Beschreibung des zu bearbeitenden fitnesss mitgegeben werden, evtl. über value
   render() {
     // console.log(this.state.hallo);
-    //console.log(this.state.courses);
+    console.log(this.state.courses);
     return (
       <div className="form">
       <div className="heading">
@@ -99,6 +100,7 @@ export default class EditCourseDate extends Component {
         value={this.state.selectedCourse}
         onChange={e => this.setState({selectedCourse: e.target.value, validationError: e.target.value === "" ? "Wähle einen Kurs aus" : ""})}
         >
+          
         {this.state.courses.map((course, index) => 
         <option 
         key={index} value={course.title}>
@@ -122,6 +124,7 @@ export default class EditCourseDate extends Component {
           </Button>
         </Link>
       </div>
+      
     );
   }
 }

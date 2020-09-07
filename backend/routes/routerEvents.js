@@ -60,6 +60,7 @@ routerEvents.get("/courses", (req, res) => {
   routerEvents.put("/courses/:id", function (req, res) {
     let data = {
       date: req.body.date,
+      title: req.body.title,
     };
     console.log("Put received");
     db.query(

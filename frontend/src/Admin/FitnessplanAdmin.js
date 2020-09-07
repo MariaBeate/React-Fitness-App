@@ -81,6 +81,34 @@ this.state = {
   render() {
     return (
       <div className="fitnessplan">
+        <Modal
+              isOpen={this.state.modal}
+              toggle={this.toggle}
+              className="modal"
+            >
+              <ModalHeader toggle={this.toggle}>
+                
+                <p> Kursname: {this.state.event.title} </p>
+              </ModalHeader>
+              <ModalBody>
+                <div>
+                 <p> Datum: {this.state.event.date} </p>
+                 <p> ID: {this.state.event.id} </p>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+              <Link className="edit-link" to={"/EditCourseDate/" + this.state.event.id}>
+                    <Button className="button edit">Edit</Button>
+              </Link>
+              <Button className="button delete" variant="danger" onClick={() => this._deleteCourse(this.state.event.id)}>
+                    Delete
+                  </Button>
+                <Button color="secondary" onClick={this.toggle}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Modal>
+            
         <div className="heading">
         Kursplan
         <div className="heading sub">
@@ -122,32 +150,7 @@ this.state = {
             eventClick = {this.handleEventClick}
             height='parent'
           />
-          <Modal
-              isOpen={this.state.modal}
-              toggle={this.toggle}
-            >
-              <ModalHeader toggle={this.toggle}>
-                
-                <p>Kursname:{this.state.event.title}</p>
-              </ModalHeader>
-              <ModalBody>
-                <div>
-                 <p> Datum: {this.state.event.date} </p>
-                 <p> ID: {this.state.event.id} </p>
-                </div>
-              </ModalBody>
-              <ModalFooter>
-              <Link className="edit-link" to={"/EditCourseDate/" + this.state.event.id}>
-                    <Button className="button edit">Edit</Button>
-              </Link>
-              <Button className="button delete" variant="danger" onClick={() => this._deleteCourse(this.state.event.id)}>
-                    Delete
-                  </Button>
-                <Button color="secondary" onClick={this.toggle}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Modal>
+          
         </div>
        </div>
     );
