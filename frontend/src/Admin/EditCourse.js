@@ -8,8 +8,6 @@ export default class EditCourse extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeCourseDate = this.onChangeCourseDate.bind(this);
-    this.onChangeCourseEndDate = this.onChangeCourseEndDate.bind(this);
     this.onChangeCourseName = this.onChangeCourseName.bind(this);
     this.onChangeCoursePrice = this.onChangeCoursePrice.bind(this);
     this.onChangeCourseDescription = this.onChangeCourseDescription.bind(this);
@@ -18,8 +16,6 @@ export default class EditCourse extends Component {
     this.state = {
       courses: [],
       course: {
-        date: "",
-        endDate: "",
         title: "",
         price: null,
         description: "",
@@ -38,13 +34,6 @@ export default class EditCourse extends Component {
       );
   }
 
-  onChangeCourseDate(e) {
-    this.setState({ date: e.target.value });
-  }
-
-  onChangeCourseEndDate(e) {
-    this.setState({ endDate: e.target.value });
-  }
   onChangeCourseName(e) {
     this.setState({ title: e.target.value });
   }
@@ -66,8 +55,6 @@ export default class EditCourse extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        date: this.state.date,
-        endDate: this.state.endDate,
         title: this.state.title,
         price: this.state.price,
         description: this.state.description,
@@ -90,36 +77,6 @@ export default class EditCourse extends Component {
       <div className="heading">
         Füge einen Kurs hinzu:
       </div>
-        <div className="form-group">
-        <label htmlFor="date">StartDatum</label>
-        {this.state.courses.map((course) => (
-          <input
-            key={course.id}
-            type="date"
-            className="form-control"
-            id="datum"
-            defaultValue={course.date}
-            onChange={this.onChangeCourseDate}
-            name="date"
-          />
-        ))}
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="endDate">EndDatum</label>
-        {this.state.courses.map((course) => (
-          <input
-            key={course.id}
-            type="date"
-            className="form-control"
-            id="enddatum"
-            defaultValue={course.endDate}
-            onChange={this.onChangeCourseEndDate}
-            name="endDdate"
-          />
-        ))}
-      </div>
-
         <div className="form-group">
           <label htmlFor="title">Name</label>
           {this.state.courses.map((course) => (
@@ -153,7 +110,7 @@ export default class EditCourse extends Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Beschreibung</label>
           {this.state.courses.map((course) => (
             <input
               key={course.id}

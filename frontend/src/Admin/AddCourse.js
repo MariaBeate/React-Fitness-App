@@ -7,8 +7,6 @@ export default class AddCourse extends Component {
   constructor(props) {
     super(props);
     // this.onChangeDate = this.onChangeDate.bind(this);
-    this.onChangeDate = this.onChangeDate.bind(this);
-    this.onChangeEndDate = this.onChangeEndDate.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -16,8 +14,6 @@ export default class AddCourse extends Component {
     
     this.state = {
       course: {
-        date: "",
-        endDate:"",
         id: null,
         title: "",
         price: "",
@@ -28,16 +24,6 @@ export default class AddCourse extends Component {
   }
 
   componentDidMount() {}
-  onChangeDate(e) {
-    this.setState({
-      date: e.target.value,
-    });
-  }
-  onChangeEndDate(e) {
-    this.setState({
-      endDate: e.target.value,
-    });
-  }
   onChangeName(e) {
     this.setState({
       title: e.target.value,
@@ -63,8 +49,6 @@ export default class AddCourse extends Component {
       },
       body: JSON.stringify({
         // date: this.state.date,
-        date: this.state.date,
-        endDate: this.state.endDate,
         title: this.state.title,
         price: this.state.price,
         description: this.state.description,
@@ -82,32 +66,6 @@ export default class AddCourse extends Component {
       <div className="heading">
         Füge einen Kurs hinzu:
       </div>
-          <div className="form-group">
-          <label htmlFor="date">StartDatum</label>
-          <input
-            type="date"
-            className="form-control"
-            id="startdatum"
-            required
-            //value={this.state.name}
-            onChange={this.onChangeDate}
-            name="date"
-          />
-        </div>
-
-          <div className="form-group">
-          <label htmlFor="endDate">EndDatum</label>
-          <input
-            type="date"
-            className="form-control"
-            id="enddatum"
-            required
-            //value={this.state.name}
-            onChange={this.onChangeEndDate}
-            name="endDate"
-          />
-        </div>
-
         <div className="form-group">
           <label htmlFor="title">Name</label>
           <input
@@ -135,7 +93,7 @@ export default class AddCourse extends Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Beschreibung</label>
           <input
             type="text"
             className="form-control"

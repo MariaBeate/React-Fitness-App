@@ -28,8 +28,6 @@ routerFitness.post("/addCourse", (req, res) => {
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,
-    date: req.body.date,
-    endDate: req.body.endDate,
   };
   let sql = "INSERT INTO events SET ?";
   db.query(sql, data, (err, results) => {
@@ -44,8 +42,6 @@ routerFitness.post("/addEvent", (req, res) => {
   let data = {
     // date: req.body.date,
     title: req.body.title,
-    date: req.body.date,
-    endDate: req.body.endDate,
   };
   let sql = "INSERT INTO events SET ?";
   db.query(sql, data, (err, results) => {
@@ -60,8 +56,6 @@ routerFitness.put("/fitness/:id", function (req, res) {
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,
-    date: req.body.date,
-    endDate: req.body.endDate,
   };
   console.log("Put received");
   db.query(

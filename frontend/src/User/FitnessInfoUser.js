@@ -26,8 +26,6 @@ export default class FitnessInfoUser extends Component {
         <table id="info">
           <thead>
             <tr>
-              <th>StartDatum</th>
-              <th>EndDatum</th>
               <th>Name</th>
               <th>Preis</th>
               <th>Beschreibung</th>
@@ -36,8 +34,6 @@ export default class FitnessInfoUser extends Component {
           <tbody>
             {this.state.courses.map((course) => (
               <tr key={course.id}>
-                <td>{moment(course.date).format("Do MMM YYYY")} </td>
-                <td>{moment(course.endDate).format("Do MMM YYYY")} </td>
                 <td>{course.title} </td>
                 <td>{course.price}</td>
                 <td>{course.description}</td>
