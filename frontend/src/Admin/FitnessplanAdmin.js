@@ -22,8 +22,8 @@ this.state = {
     courses: [],
     event: {
       id: "",
+      date: "",
       title: "",
-      date:"",
 
       response: {},
     },
@@ -76,34 +76,36 @@ this.state = {
     this.toggle();
     this.setState({ event });
   };
+
+  
   
 
   render() {
+    console.log(this.state.event.date);
     return (
       <div className="fitnessplan">
         <Modal
               isOpen={this.state.modal}
-              toggle={this.toggle}
               className="modal"
             >
-              <ModalHeader toggle={this.toggle}>
+              <ModalHeader className="modal-header">
                 
-                <p> Kursname: {this.state.event.title} </p>
+                <p>Kurs bearbeiten</p>
               </ModalHeader>
-              <ModalBody>
+              <ModalBody className="modal-body">
                 <div>
+                <p> Kursname: {this.state.event.title} </p>
                  <p> Datum: {this.state.event.date} </p>
-                 <p> ID: {this.state.event.id} </p>
                 </div>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className="modal-footer">
               <Link className="edit-link" to={"/EditCourseDate/" + this.state.event.id}>
-                    <Button className="button edit">Edit</Button>
+                    <Button className="button edit mrg">Edit</Button>
               </Link>
-              <Button className="button delete" variant="danger" onClick={() => this._deleteCourse(this.state.event.id)}>
+              <Button className="button delete mrg" variant="danger" onClick={() => this._deleteCourse(this.state.event.id)}>
                     Delete
                   </Button>
-                <Button color="secondary" onClick={this.toggle}>
+                <Button className="button cancel mrg" onClick={this.toggle}>
                   Cancel
                 </Button>
               </ModalFooter>

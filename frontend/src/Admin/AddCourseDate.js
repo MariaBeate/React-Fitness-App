@@ -16,7 +16,7 @@ export default class AddCourseDate extends Component {
       validationError: "",
       course: {
         date: "",
-        coursetitle: "",
+        title: "",
         submitted: false,
       },
     };

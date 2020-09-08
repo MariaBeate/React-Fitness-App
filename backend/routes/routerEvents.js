@@ -10,17 +10,6 @@ routerEvents.get("/courses", (req, res) => {
     });
   });
 
-  // routerEvents.post("/addCourseID", (req, res) => {
-  //   let data = {
-  //     courseid: req.body.courseid,
-  //   };
-  //   let sql = "INSERT INTO kursplan (courseid) VALUES (SELECT id FROM events)";
-  //   db.query(sql, data, (err, results) => {
-  //     if (err) throw err;
-  //     res.redirect("/api/fitness");
-  //   });
-  // });
-
   routerEvents.post("/addCourseDate", (req, res) => {
     let data = {
       date: req.body.date,

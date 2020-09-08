@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 
 import Header from "./Header";
@@ -133,8 +133,6 @@ class App extends Component {
                 render={(props) => <EditCourse {...props} />}
               />
               <ProtectedRouteEdit />
-              </Switch>
-              <Switch>
               <Route 
               path="/EditCourseDate/:id" 
               render={(props) => <EditCourseDate {...props} />}

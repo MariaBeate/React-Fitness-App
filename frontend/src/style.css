@@ -106,7 +106,25 @@ table#info tr:nth-child(even) {
 }
 .modal {
 border: 3px solid #ffa600; 
-background-color: #ffa600;
+background-color: #ffffff;
+position: fixed;
+top: 250px;
+left: 400px;
+right: 400px;
+bottom: 250px;
+}
+.modal-header, .modal-footer, .modal-body {
+  padding: 3px 210px;
+}
+.modal-header {
+  font-size: 200%;
+}
+.mrg {
+  margin-top: 20px;
+  margin-right: 10px;
+}
+.cancel {
+  background-color: #ffa600;
 }
 
 /* Login.css */

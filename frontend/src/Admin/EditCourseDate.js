@@ -17,6 +17,7 @@ export default class EditCourseDate extends Component {
       courses: [],
       course: {
         date: "",
+        title:"",
       },
       
     };
@@ -35,7 +36,7 @@ export default class EditCourseDate extends Component {
       .then((response) => response.json())
       .then((data) => {
         let coursesFromApi = data.map((course) => {
-          return {value: course.title, display: course.title}
+          return {value: course.title, display: course.title,}
         });
         this.setState({
           courses: [{title: '', display: 'Wähle einen Kurs'}].concat(coursesFromApi)
