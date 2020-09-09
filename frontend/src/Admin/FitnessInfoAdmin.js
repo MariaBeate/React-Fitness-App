@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import moment from 'moment';
-//import EditCourse from "./EditCourse";
 
 export default class FitnessInfoAdmin extends Component {
   constructor(props) {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {render} from 'react-dom';
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
 import Header from "./Header";
@@ -144,7 +145,8 @@ class App extends Component {
       </Router>
     );
   }
+
 }
 
+
 render(<App />, document.getElementById("root"));
-//export default withRouter(App);
