@@ -13,28 +13,25 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "../Fitnessplan.css";
 
 export default class FitnessplanAdmin extends Component {
-calendarComponentRef = React.createRef();
-constructor(props) {
-super(props);
-this._deleteCourse = this._deleteCourse.bind(this);
+  calendarComponentRef = React.createRef();
+  constructor(props) {
+    super(props);
+    this._deleteCourse = this._deleteCourse.bind(this);
 
-this.state = {
-    courses: [],
-    event: {
+    this.state = {
+      courses: [],
       id: "",
       date: "",
       title: "",
 
-      response: {},
-    },
-    calendarWeekends: true,
-    allDay: true,
-    calendarEvents: [
-      // initial event data
-      { name: "Event Now", start: new Date() },
-    ],
-  };
-}
+      calendarWeekends: true,
+      allDay: true,
+      calendarEvents: [
+        // initial event data
+        { name: "Event Now", start: new Date() },
+      ],
+    };
+  }
 
   componentDidMount() {
     fetch("http://localhost:9000/api/courses")
@@ -67,64 +64,76 @@ this.state = {
     console.log("Deleted");
   }
 
-
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
-  
-  handleEventClick = ({ event, el }) => {
+
+  handleEventClick = ({ event }) => {
     this.toggle();
-    this.setState({ event });
+    const date = event.start.toISOString().substr(0, 10);
+    this.setState({ date: date, title: event.title });
   };
 
-  
-  
-
   render() {
-    console.log(this.state.event.date);
+    //console.log(this.state.date);
+    var start = this.state.date;
+    console.log(this.state.title);
+    //console.log(start.toISOString());
     return (
       <div className="fitnessplan">
-        <Modal
-              isOpen={this.state.modal}
-              className="modal"
+        <Modal isOpen={this.state.modal} className="modal">
+          <ModalHeader className="modal-header">
+            <p>Kurs bearbeiten</p>
+          </ModalHeader>
+          <ModalBody className="modal-body">
+            <div>
+              <p> Kursname: {this.state.title} </p>
+              <p> Datum: {this.state.date} </p>
+            </div>
+          </ModalBody>
+          <ModalFooter className="modal-footer">
+            <Link
+              className="edit-link"
+              to={{
+                pathname: "/EditCourseDate/" + this.state.id,
+                state: {
+                  //date: this.state.event.date,
+                  // name: this.state.event.title,
+                },
+              }}
             >
-              <ModalHeader className="modal-header">
-                
-                <p>Kurs bearbeiten</p>
-              </ModalHeader>
-              <ModalBody className="modal-body">
-                <div>
-                <p> Kursname: {this.state.event.title} </p>
-                 <p> Datum: {this.state.event.date} </p>
-                </div>
-              </ModalBody>
-              <ModalFooter className="modal-footer">
-              <Link className="edit-link" to={"/EditCourseDate/" + this.state.event.id}>
-                    <Button className="button edit mrg">Edit</Button>
-              </Link>
-              <Button className="button delete mrg" variant="danger" onClick={() => this._deleteCourse(this.state.event.id)}>
-                    Delete
-                  </Button>
-                <Button className="button cancel mrg" onClick={this.toggle}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Modal>
-            
+              <Button className="button edit mrg">Edit</Button>
+            </Link>
+            <Button
+              className="button delete mrg"
+              variant="danger"
+              onClick={() => this._deleteCourse(this.state.id)}
+            >
+              Delete
+            </Button>
+            <Button className="button cancel mrg" onClick={this.toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+
         <div className="heading">
-        Kursplan
-        <div className="heading sub">
-        Klicke auf ein Datum, um einen neuen Kurs hinzuzufügen
-        </div>
-        <div>
-        <button onClick={this.toggleWeekends} className="button add" >Ohne Wochenenden</button>&nbsp;
-          {/* <button onClick={this.gotoPast}>go to a date in the past</button> */}
-        </div>
-        <div>
-          <Link className="create-link" to={"/AddCourseDate"}>
-            <Button className="button add">Add</Button>
-          </Link>
-        </div>
+          Kursplan
+          <div className="heading sub">
+            Klicke auf ein Datum, um einen neuen Kurs hinzuzufügen
+          </div>
+          <div>
+            <button onClick={this.toggleWeekends} className="button add">
+              Ohne Wochenenden
+            </button>
+            &nbsp;
+            {/* <button onClick={this.gotoPast}>go to a date in the past</button> */}
+          </div>
+          <div>
+            <Link className="create-link" to={"/AddCourseDate"}>
+              <Button className="button add">Add</Button>
+            </Link>
+          </div>
         </div>
 
         <div className="fitness-calendar">
@@ -135,7 +144,6 @@ this.state = {
               center: "title",
               right: "dayGridMonth,dayGridWeek,listWeek",
             }}
-            
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             // editable={true}  //change length of event by dragging the event down. Change day of event by dragging
             // eventContent={this.renderEventContent}
@@ -146,19 +154,17 @@ this.state = {
             ref={this.calendarComponentRef}
             weekends={this.state.calendarWeekends}
             //events={this.state.calendarEvents}
-            events={this.state.courses}    //Funktioniert theoretisch. 
+            events={this.state.courses} //Funktioniert theoretisch.
             dateClick={this.handleDateClick}
             onDelete={this.handleDelete}
-            eventClick = {this.handleEventClick}
-            height='parent'
+            eventClick={this.handleEventClick}
+            height="parent"
           />
-          
         </div>
-       </div>
+      </div>
     );
   }
 
- 
   toggleWeekends = () => {
     this.setState({
       // update a property
@@ -171,7 +177,7 @@ this.state = {
     calendarApi.gotoDate("2020-01-01"); // call a method on the Calendar object
   };
 
- handleDateClick = (arg) => {
+  /*handleDateClick = (arg) => {
     if (
       window.confirm("Would you like to add an event to " + arg.dateStr + " ?")
     ) {
@@ -186,39 +192,5 @@ this.state = {
         }),
       });
     }
-  }; 
- /*  handleDelete = eventId => {
-    const events = this.state.events.filter(e => e.id !== eventId);
-    this.setState({ events });
-    };*/
-} 
-
- // handleEventClick = (info) => {
-  //   alert('Event: ' + info.event.name);
-  // }
-
-  // handleDateClick = (selectInfo) => {
-  //   let name = prompt('Please enter a new name for your event')
-  //   let calendarApi = selectInfo.view.calendar
-
-  //   //calendarApi.unselect() // clear date selection
-
-  //   if (name) {
-  //     calendarApi.addEvent({
-  //       id:"",
-  //       name,
-  //       start: selectInfo.startStr,
-  //       end: selectInfo.endStr,
-  //       allDay: selectInfo.allDay
-  //     })
-  //   }
-  // }
-
-  // renderEventContent(eventInfo) {
-  //   return (
-  //     <>
-  //       <b>{"hey"}</b>
-  //       <i>{"hu"}</i>
-  //     </>
-  //   )
-  // }
+  };*/
+}

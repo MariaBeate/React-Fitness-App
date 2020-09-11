@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import {render} from 'react-dom';
+import { render } from "react-dom";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 
 import Header from "./Header";
 import Home from "./Home";
@@ -12,16 +11,16 @@ import AddCourse from "./Admin/AddCourse";
 import AddCourseDate from "./Admin/AddCourseDate";
 import EditCourse from "./Admin/EditCourse";
 import EditCourseDate from "./Admin/EditCourseDate";
-import ProtectedRouteAdd from "./Admin/ProtectedRouteAdd";
-import ProtectedRouteAddDate from "./Admin/ProtectedRouteAddDate";
-import ProtectedRouteEdit from "./Admin/ProtectedRouteEdit";
-import ProtectedRouteFitness from "./Admin/ProtectedRouteFitness";
-import ProtectedRouteFitnessplan from "./Admin/ProtectedRouteFitnessplan";
+import ProtectedRouteAdd from "./Admin/Protected_Routes/ProtectedRouteAdd";
+import ProtectedRouteAddDate from "./Admin/Protected_Routes/ProtectedRouteAddDate";
+import ProtectedRouteEdit from "./Admin/Protected_Routes/ProtectedRouteEdit";
+import ProtectedRouteEditDate from "./Admin/Protected_Routes/ProtectedRouteEditDate";
+import ProtectedRouteFitness from "./Admin/Protected_Routes/ProtectedRouteFitness";
+import ProtectedRouteFitnessplan from "./Admin/Protected_Routes/ProtectedRouteFitnessplan";
 import FitnessInfoUser from "./User/FitnessInfoUser";
-import FitnessplanUser from "./User/FitnessplanUser"
+import FitnessplanUser from "./User/FitnessplanUser";
 import SignUp from "./SignUp";
-import LoginTest from "./LoginTest";
-
+import Login from "./Login";
 
 class App extends Component {
   constructor(props) {
@@ -105,6 +104,13 @@ class App extends Component {
               <Route exact path="/Fitnessplan">
                 <FitnessplanUser />
               </Route>
+              <ProtectedRouteAddDate path="/AddCourseDate">
+                <AddCourseDate />
+              </ProtectedRouteAddDate>
+              <ProtectedRouteEditDate
+                path="/EditCourseDate/:id"
+                render={(props) => <EditCourseDate {...props} />}
+              />
               <ProtectedRouteFitness path="/FitnessInfoAdmin">
                 <FitnessInfoAdmin />
               </ProtectedRouteFitness>
@@ -114,14 +120,15 @@ class App extends Component {
               <ProtectedRouteAdd path="/AddCourse">
                 <AddCourse />
               </ProtectedRouteAdd>
-              <ProtectedRouteAddDate path="/AddCourseDate">
-                <AddCourseDate />
-              </ProtectedRouteAddDate>
+              <ProtectedRouteEdit
+                path="/EditCourse/:id"
+                render={(props) => <EditCourse {...props} />}
+              />
               <Route path="/SignUp">
                 <SignUp />
               </Route>
-              <Route path="/LoginTest">
-                <LoginTest
+              <Route path="/Login">
+                <Login
                   handleLogin={this.handleLogin.bind(this)}
                   handleLogout={this.handleLogout.bind(this)}
                   onChangeUsername={this.onChangeUsername.bind(this)}
@@ -129,24 +136,12 @@ class App extends Component {
                   isLoggedIn={this.state.isLoggedIn}
                 />
               </Route>
-              <ProtectedRouteEdit
-                path="/EditCourse/:id"
-                render={(props) => <EditCourse {...props} />}
-              />
-              <ProtectedRouteEdit />
-              <Route 
-              path="/EditCourseDate/:id" 
-              render={(props) => <EditCourseDate {...props} />}
-            >
-              </Route>
-              </Switch>
+            </Switch>
           </div>
         </div>
       </Router>
     );
   }
-
 }
-
 
 render(<App />, document.getElementById("root"));

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import logo from './logo.png';
+import logo from "./logo.png";
 import "./style.css";
 
 class Header extends Component {
@@ -21,9 +21,9 @@ class Header extends Component {
       return (
         <div className="header">
           <div className="container">
-              <div className="logo">
+            <div className="logo">
               <img src={logo} alt="Logo" />
-              </div>
+            </div>
             <div className="navbar">
               <ul>
                 <li>
@@ -50,14 +50,14 @@ class Header extends Component {
                   </NavLink>
                 </li>
                 <li>
-                <NavLink
-                  to="/"
-                  exact
-                  activeStyle={{ color: "#fff" }}
-                  onClick={this.props.handleLogout}
-                >
-                  Logout
-                </NavLink>
+                  <NavLink
+                    to="/"
+                    exact
+                    activeStyle={{ color: "#fff" }}
+                    onClick={this.props.handleLogout}
+                  >
+                    Logout
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -69,9 +69,9 @@ class Header extends Component {
         <div className="header">
           <div className="container">
             <div className="logo">
-            <div className="logo">
-          <img src={logo} alt="logo"/>
-        </div>
+              <div className="logo">
+                <img src={logo} alt="logo" />
+              </div>
             </div>
             <div className="navbar">
               <ul>
@@ -99,20 +99,12 @@ class Header extends Component {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    to="/SignUp"
-                    exact
-                    activeStyle={{ color: "#fff" }}
-                  >
+                  <NavLink to="/SignUp" exact activeStyle={{ color: "#fff" }}>
                     Sign up
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    to="/LoginTest"
-                    exact
-                    activeStyle={{ color: "#fff" }}
-                  >
+                  <NavLink to="/Login" exact activeStyle={{ color: "#fff" }}>
                     Login
                   </NavLink>
                 </li>

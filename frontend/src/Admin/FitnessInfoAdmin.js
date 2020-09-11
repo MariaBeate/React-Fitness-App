@@ -18,7 +18,7 @@ export default class FitnessInfoAdmin extends Component {
     fetch("http://localhost:9000/api/fitness")
       .then((response) => response.json())
       .then((course) => {
-        this.setState({ courses: course});
+        this.setState({ courses: course });
       });
   }
 
@@ -49,15 +49,15 @@ export default class FitnessInfoAdmin extends Component {
     return (
       <div>
         <div className="heading">
-        Kursplan
-        <div className="heading sub">
-        Um einen neuen Kurs hinzuzufügen, klicke hier:
-        </div>
-        <div>
-          <Link className="create-link" to={"/AddCourse"}>
-            <Button className="button add">Add</Button>
-          </Link>
-        </div>
+          Kursplan
+          <div className="heading sub">
+            Um einen neuen Kurs hinzuzufügen, klicke hier:
+          </div>
+          <div>
+            <Link className="create-link" to={"/AddCourse"}>
+              <Button className="button add">Add</Button>
+            </Link>
+          </div>
         </div>
         <table id="info">
           <thead>
@@ -75,25 +75,38 @@ export default class FitnessInfoAdmin extends Component {
                 <td>{course.price} € </td>
                 <td> {course.description}</td>
                 <td>
-                <div className="last-column">
-                  <Button className="button delete" variant="danger" onClick={() => this._deleteCourse(course.id)}>
-                    Delete
-                  </Button>
-                </div>
+                  <div className="last-column">
+                    <Button
+                      className="button delete"
+                      variant="danger"
+                      onClick={() => this._deleteCourse(course.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </td>
                 <td>
-                <div className="last-column">
-                  <Link className="edit-link" to={"/EditCourse/" + course.id}>
-                    <Button className="button edit">Edit</Button>
-                  </Link>
+                  <div className="last-column">
+                    <Link
+                      className="edit-link"
+                      to={{
+                        pathname: "/EditCourse/" + course.id,
+                        state: {
+                          name: course.title,
+                          price: course.price,
+                          description: course.description,
+                        },
+                      }}
+                    >
+                      <Button className="button edit">Edit</Button>
+                    </Link>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        </div>
+      </div>
     );
   }
 }
-

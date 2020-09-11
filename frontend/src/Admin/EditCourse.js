@@ -15,16 +15,18 @@ export default class EditCourse extends Component {
 
     this.state = {
       courses: [],
-      course: {
-        title: "",
-        price: null,
-        description: "",
-      },
-      
+      title: "",
+      price: null,
+      description: "",
     };
   }
 
   componentDidMount() {
+    this.setState({
+      title: this.props.location.state.name,
+      price: this.props.location.state.price,
+      description: this.props.location.state.description,
+    });
     fetch("http://localhost:9000/api/fitness/" + this.props.match.params.id)
       .then((response) => response.json())
       .then((course) =>
@@ -68,60 +70,46 @@ export default class EditCourse extends Component {
     console.log("Edited");
   }
 
-  //Hier müssen noch Name, Preis und Beschreibung des zu bearbeitenden fitnesss mitgegeben werden, evtl. über value
   render() {
-    // console.log(this.state.hallo);
-    //console.log(this.state.courses);
     return (
       <div className="form">
-      <div className="heading">
-        Füge einen Kurs hinzu:
-      </div>
+        <div className="heading">Kurs bearbeiten:</div>
         <div className="form-group">
           <label htmlFor="title">Name</label>
-          {this.state.courses.map((course) => (
-            <input
-              key={course.id}
-              type="text"
-              className="form-control"
-              id="title"
-              defaultValue={course.title}
-              onChange={this.onChangeCourseName}
-              name="title"
-            />
-          ))}
+          <input
+            type="text"
+            className="form-control"
+            id="title"
+            defaultValue={this.state.title}
+            onChange={this.onChangeCourseName}
+            name="title"
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="price">Preis</label>
-          {this.state.courses.map((course) => (
-            <input
-              key={course.id}
-              type="number"
-              min="0"
-              step="1"
-              className="form-control"
-              id="preis"
-              defaultValue={course.price}
-              onChange={this.onChangeCoursePrice}
-              name="price"
-            />
-          ))}
+          <input
+            type="number"
+            min="0"
+            step="1"
+            className="form-control"
+            id="preis"
+            defaultValue={this.state.price}
+            onChange={this.onChangeCoursePrice}
+            name="price"
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="description">Beschreibung</label>
-          {this.state.courses.map((course) => (
-            <input
-              key={course.id}
-              type="text"
-              className="form-control"
-              id="description"
-              defaultValue={course.description}
-              onChange={this.onChangeCourseDescription}
-              name="description"
-            />
-          ))}
+          <input
+            type="text"
+            className="form-control"
+            id="description"
+            defaultValue={this.state.description}
+            onChange={this.onChangeCourseDescription}
+            name="description"
+          />
         </div>
 
         <Link to="/FitnessInfoAdmin">

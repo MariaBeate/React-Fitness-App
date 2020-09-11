@@ -17,9 +17,8 @@ export default class EditCourseDate extends Component {
       courses: [],
       course: {
         date: "",
-        title:"",
+        title: "",
       },
-      
     };
   }
 
@@ -31,17 +30,20 @@ export default class EditCourseDate extends Component {
           courses: course,
         })
       );
- 
+
     fetch("http://localhost:9000/api/fitness/")
       .then((response) => response.json())
       .then((data) => {
         let coursesFromApi = data.map((course) => {
-          return {value: course.title, display: course.title,}
+          return { value: course.title, display: course.title };
         });
         this.setState({
-          courses: [{title: '', display: 'Wähle einen Kurs'}].concat(coursesFromApi)
+          courses: [{ title: "", display: "Wähle einen Kurs" }].concat(
+            coursesFromApi
+          ),
         });
-      }).catch(error => {
+      })
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -49,7 +51,6 @@ export default class EditCourseDate extends Component {
   onChangeCourseDate(e) {
     this.setState({ date: e.target.value });
   }
-
 
   onSubmit() {
     //e.preventDefault();
@@ -79,42 +80,43 @@ export default class EditCourseDate extends Component {
     console.log(this.state.courses);
     return (
       <div className="form">
-      <div className="heading">
-        Füge einen Kurs hinzu:
-      </div>
+        <div className="heading">Kurs bearbeiten:</div>
         <div className="form-group">
-        <label htmlFor="date">StartDatum</label>
-        {this.state.courses.map((course) => (
+          <label htmlFor="date">StartDatum</label>
           <input
-            key={course.id}
             type="date"
             className="form-control"
             id="datum"
-            defaultValue={course.date}
+            defaultValue={this.props.location.state.date}
             onChange={this.onChangeCourseDate}
             name="date"
           />
-        ))}
-      </div>
-      <div>
-        <select className ='selectField'
-        value={this.state.selectedCourse}
-        onChange={e => this.setState({selectedCourse: e.target.value, validationError: e.target.value === "" ? "Wähle einen Kurs aus" : ""})}
-        >
-          
-        {this.state.courses.map((course, index) => 
-        <option 
-        key={index} value={course.title}>
-          {course.display}
-        </option>)}
-        </select>
-      <div style={{color: 'red', marginTop: '5px'}}>
-      {this.state.validationError}
-     </div>
-     </div>
+        </div>
+        <div>
+          <select
+            className="selectField"
+            //value={this.state.selectedCourse}
+            defaultValue={this.props.location.state.name}
+            onChange={(e) =>
+              this.setState({
+                selectedCourse: e.target.value,
+                validationError:
+                  e.target.value === "" ? "Wähle einen Kurs aus" : "",
+              })
+            }
+          >
+            {this.state.courses.map((course, index) => (
+              <option key={index} value={course.title}>
+                {course.display}
+              </option>
+            ))}
+          </select>
+          <div style={{ color: "red", marginTop: "5px" }}>
+            {this.state.validationError}
+          </div>
+        </div>
 
-
-        <Link to="/FitnessPlanAdmin">
+        <Link to="/FitnessplanAdmin">
           <Button
             className="button add add2"
             variant="danger"
@@ -125,7 +127,6 @@ export default class EditCourseDate extends Component {
           </Button>
         </Link>
       </div>
-      
     );
   }
 }
