@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-//import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-//Hier muss nach dem hinzufügen wieder zur FitnessInfo Seite weitergeleitet werden
 export default class EditCourse extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +47,6 @@ export default class EditCourse extends Component {
   }
 
   onSubmit() {
-    //e.preventDefault();
     fetch("http://localhost:9000/api/fitness/" + this.props.match.params.id, {
       method: "PUT",
       headers: {

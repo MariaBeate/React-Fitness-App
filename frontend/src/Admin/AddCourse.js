@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-//import { Table, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-//Hier muss nach dem hinzufügen wieder zur FitnessInfo Seite weitergeleitet werden
 export default class AddCourse extends Component {
   constructor(props) {
     super(props);
-    // this.onChangeDate = this.onChangeDate.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    
+
     this.state = {
       course: {
         id: null,
@@ -40,7 +37,6 @@ export default class AddCourse extends Component {
     });
   }
   handleSubmit() {
-    //fitness.preventDefault();
     fetch("http://localhost:9000/api/addCourse", {
       method: "POST",
       headers: {
@@ -48,7 +44,6 @@ export default class AddCourse extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // date: this.state.date,
         title: this.state.title,
         price: this.state.price,
         description: this.state.description,
@@ -63,9 +58,7 @@ export default class AddCourse extends Component {
   render() {
     return (
       <div className="form">
-      <div className="heading">
-        Füge einen Kurs hinzu:
-      </div>
+        <div className="heading">Füge einen Kurs hinzu:</div>
         <div className="form-group">
           <label htmlFor="title">Name</label>
           <input
@@ -73,7 +66,6 @@ export default class AddCourse extends Component {
             className="form-control"
             id="title"
             required
-            //value={this.state.name}
             onChange={this.onChangeName}
             name="title"
           />
@@ -86,7 +78,6 @@ export default class AddCourse extends Component {
             className="form-control"
             id="preis"
             required
-            // value={this.state.price}
             onChange={this.onChangePrice}
             name="price"
           />
@@ -99,7 +90,6 @@ export default class AddCourse extends Component {
             className="form-control"
             id="description"
             required
-            // value={this.state.description}
             onChange={this.onChangeDescription}
             name="description"
           />

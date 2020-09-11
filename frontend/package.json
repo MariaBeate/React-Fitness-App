@@ -1,5 +1,5 @@
 {
-  "name": "essen-app",
+  "name": "fitness-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +26,8 @@
     "react-scripts": "^3.4.3",
     "react-slick": "^0.25.2",
     "react-slider": "^1.0.4",
-    "react-validation": "^3.0.7"
+    "react-validation": "^3.0.7",
+    "reactstrap": "^8.5.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default class FitnessInfoAdmin extends Component {
   constructor(props) {
     super(props);
-    this._deleteCourse = this._deleteCourse.bind(this);
+    this.deleteCourse = this.deleteCourse.bind(this);
 
     this.state = {
       courses: [],
@@ -17,12 +17,12 @@ export default class FitnessInfoAdmin extends Component {
   componentDidMount() {
     fetch("http://localhost:9000/api/fitness")
       .then((response) => response.json())
-      .then((course) => {
-        this.setState({ courses: course });
+      .then((courses) => {
+        this.setState({ courses: courses });
       });
   }
 
-  _deleteCourse(id) {
+  deleteCourse(id) {
     const { courses } = this.state;
     fetch("http://localhost:9000/api/fitness/" + id, {
       method: "DELETE",
@@ -40,7 +40,6 @@ export default class FitnessInfoAdmin extends Component {
       .catch((error) => {
         throw error;
       });
-    //    fitness.preventDefault();
 
     console.log("Deleted");
   }
@@ -79,7 +78,7 @@ export default class FitnessInfoAdmin extends Component {
                     <Button
                       className="button delete"
                       variant="danger"
-                      onClick={() => this._deleteCourse(course.id)}
+                      onClick={() => this.deleteCourse(course.id)}
                     >
                       Delete
                     </Button>

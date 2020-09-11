@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-//import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-//Hier muss nach dem hinzufügen wieder zur FitnessInfo Seite weitergeleitet werden
 export default class EditCourseDate extends Component {
   constructor(props) {
     super(props);
@@ -74,9 +72,7 @@ export default class EditCourseDate extends Component {
     console.log(this.state.selectedCourse);
   }
 
-  //Hier müssen noch Name, Preis und Beschreibung des zu bearbeitenden fitnesss mitgegeben werden, evtl. über value
   render() {
-    // console.log(this.state.hallo);
     console.log(this.state.courses);
     return (
       <div className="form">
@@ -116,7 +112,7 @@ export default class EditCourseDate extends Component {
           </div>
         </div>
 
-        <Link to="/FitnessplanAdmin">
+        <Link to="/FitnessPlanAdmin">
           <Button
             className="button add add2"
             variant="danger"

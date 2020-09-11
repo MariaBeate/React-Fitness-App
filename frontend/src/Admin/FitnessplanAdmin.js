@@ -3,20 +3,15 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-//import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-//import  Modal  from 'react-bootstrap/Modal';
-//import ModalHeader from 'react-bootstrap/ModalHeader';
-//import ModalBody from 'react-bootstrap/ModalBody';
-//import ModalFooter from 'react-bootstrap/ModalFooter';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import "../Fitnessplan.css";
+import "../assets/css/Fitnessplan.css";
 
 export default class FitnessplanAdmin extends Component {
   calendarComponentRef = React.createRef();
   constructor(props) {
     super(props);
-    this._deleteCourse = this._deleteCourse.bind(this);
+    this.deleteCourse = this.deleteCourse.bind(this);
 
     this.state = {
       courses: [],
@@ -34,15 +29,24 @@ export default class FitnessplanAdmin extends Component {
   }
 
   componentDidMount() {
+    this.loadEvents();
+  }
+
+  loadEvents() {
     fetch("http://localhost:9000/api/courses")
       .then((response) => response.json())
-      .then((event) => {
-        this.setState({ courses: event });
+      .then((events) => {
+        this.setState({ courses: events });
       });
   }
 
-  _deleteCourse(id) {
-    const { courses } = this.state;
+  componentDidUpdate(prevState) {
+    if (prevState.courses !== this.state.courses) {
+      this.loadEvents();
+    }
+  }
+
+  deleteCourse(id) {
     fetch("http://localhost:9000/api/courses/" + id, {
       method: "DELETE",
       headers: {
@@ -52,16 +56,16 @@ export default class FitnessplanAdmin extends Component {
     })
       .then(() => {
         this.setState({
-          courses: courses.filter((event) => event.id !== id),
+          courses: this.state.courses.filter((event) => event.id !== id),
         });
         return;
       })
       .catch((error) => {
         throw error;
       });
-    //    fitness.preventDefault();
-
+    //this.loadEvents();
     console.log("Deleted");
+    this.toggle();
   }
 
   toggle = () => {
@@ -71,14 +75,10 @@ export default class FitnessplanAdmin extends Component {
   handleEventClick = ({ event }) => {
     this.toggle();
     const date = event.start.toISOString().substr(0, 10);
-    this.setState({ date: date, title: event.title });
+    this.setState({ date: date, title: event.title, id: event.id });
   };
 
   render() {
-    //console.log(this.state.date);
-    var start = this.state.date;
-    console.log(this.state.title);
-    //console.log(start.toISOString());
     return (
       <div className="fitnessplan">
         <Modal isOpen={this.state.modal} className="modal">
@@ -107,7 +107,7 @@ export default class FitnessplanAdmin extends Component {
             <Button
               className="button delete mrg"
               variant="danger"
-              onClick={() => this._deleteCourse(this.state.id)}
+              onClick={() => this.deleteCourse(this.state.id)}
             >
               Delete
             </Button>
@@ -177,7 +177,7 @@ export default class FitnessplanAdmin extends Component {
     calendarApi.gotoDate("2020-01-01"); // call a method on the Calendar object
   };
 
-  /*handleDateClick = (arg) => {
+  handleDateClick = (arg) => {
     if (
       window.confirm("Would you like to add an event to " + arg.dateStr + " ?")
     ) {
@@ -192,5 +192,5 @@ export default class FitnessplanAdmin extends Component {
         }),
       });
     }
-  };*/
+  };
 }
