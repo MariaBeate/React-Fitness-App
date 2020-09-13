@@ -6,6 +6,13 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { Link } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "../assets/css/Fitnessplan.css";
+import moment from 'moment';
+
+function searchingFor(search){
+  return function(x){
+    return x.title.toLowerCase().includes(search.toLowerCase())|| !search;
+  }
+}
 
 export default class FitnessplanAdmin extends Component {
   calendarComponentRef = React.createRef();
@@ -15,9 +22,12 @@ export default class FitnessplanAdmin extends Component {
 
     this.state = {
       courses: [],
+      show: null,
+      search: "",
       id: "",
       date: "",
       title: "",
+      showModal1: false,
 
       calendarWeekends: true,
       centered: false,
@@ -27,10 +37,19 @@ export default class FitnessplanAdmin extends Component {
         { name: "Event Now", start: new Date() },
       ],
     };
+    this.searchHandler = this.searchHandler.bind(this);
   }
 
-  componentDidMount() {
-    this.loadEvents();
+  searchHandler(event){
+    this.setState({search: event.target.value})
+  }
+
+   componentDidMount() {
+    fetch("http://localhost:9000/api/courses")
+      .then((response) => response.json())
+      .then((event) => {
+        this.setState({ courses: event });
+      });
   }
 
   loadEvents() {
@@ -73,6 +92,10 @@ export default class FitnessplanAdmin extends Component {
     this.setState({ modal: !this.state.modal });
   };
 
+  handleModalClick = () => {
+    this.toggle();
+  }
+
   handleEventClick = ({ event }) => {
     this.toggle();
     const date = event.start.toISOString().substr(0, 10);
@@ -80,6 +103,7 @@ export default class FitnessplanAdmin extends Component {
   };
 
   render() {
+    const {search, courses} = this.state;
     return (
       <div className="fitnessplan">
         <Modal isOpen={this.state.modal} className="modal" size="xl" centered={true}>
@@ -118,6 +142,45 @@ export default class FitnessplanAdmin extends Component {
           </ModalFooter>
         </Modal>
 
+        <Modal isOpen={this.state.showModal1} className="mondal" size="l" centered={true}>
+        <ModalHeader className="modal-header">
+            <p>Kurs suchen</p>
+            <div className="searchFilter">
+          <form>
+            <input type="text" className="search"
+              onChange={this.searchHandler}
+              value={search}
+              placeholder="Kurs suchen"
+            />
+          </form>
+        </div>
+          </ModalHeader>
+          <ModalBody className="modal-body">
+          <div className="pane">
+          <table id="info">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Datum</th>
+            </tr>
+          </thead>
+          <tbody>
+          {courses.filter(searchingFor(search)).map((course) => (
+              <tr key={course.id}>
+                <td>{course.title} </td>
+                <td>{moment(course.date).format("Do MMM YYYY")} </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+          </ModalBody>
+          <ModalFooter className="modal-footer">
+          <button className="button add mrg" onClick={() => this.setState({ showModal1:false})} >Close</button>
+          </ModalFooter>
+        </Modal>
+        
+
         <div className="heading">
           Kursplan
           <div className="heading sub">
@@ -125,15 +188,17 @@ export default class FitnessplanAdmin extends Component {
           </div>
           <div>
             <button onClick={this.toggleWeekends} className="button add">
-              Ohne Wochenenden
+              Wochenenden ein-/ausblenden
             </button>
             &nbsp;
-            {/* <button onClick={this.gotoPast}>go to a date in the past</button> */}
           </div>
           <div>
             <Link className="create-link" to={"/AddCourseDate"}>
-              <Button className="button add">Add</Button>
+              <Button className="button add">Kurs hinzufügen</Button>
             </Link>
+            </div>
+            <div>
+            <button className="button add" onClick={() => this.setState({ showModal1:true})} >nach Kurs suchen</button>
           </div>
         </div>
 
@@ -155,7 +220,7 @@ export default class FitnessplanAdmin extends Component {
             ref={this.calendarComponentRef}
             weekends={this.state.calendarWeekends}
             //events={this.state.calendarEvents}
-            events={this.state.courses} //Funktioniert theoretisch.
+            events={this.state.courses} 
             dateClick={this.handleDateClick}
             onDelete={this.handleDelete}
             eventClick={this.handleEventClick}

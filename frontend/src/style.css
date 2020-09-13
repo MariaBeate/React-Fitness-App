@@ -94,6 +94,13 @@ body {
 .delete {
   background-color: #ff0000;
 }
+.mrg {
+  margin-top: 20px;
+  margin-right: 10px;
+}
+.cancel {
+  background-color: #ffa600;
+}
 .home {
   display: block;
 }
@@ -125,12 +132,12 @@ table#info {
   border-collapse: collapse;
   border-spacing: 0;
   border-width: thin 0 0 thin;
-  table-layout: auto;
+  table-layout: fixed;
   width: 80%;
   box-shadow: 10px 10px 15px #e0e0e0;
+  display: table;
 }
-table#info th,
-td {
+table#info th, td {
   font-weight: normal;
   text-align: center;
   padding: 0.5em 1em;
@@ -177,31 +184,30 @@ table#info tr:nth-child(even) {
 .modal-xl {
   width: 940;
   height: 300;
-
-
-
-
 }
-.mrg {
-  margin-top: 20px;
-  margin-right: 10px;
+.modal-l{
+  width: 940;
+  height: 550;
 }
-.cancel {
-  background-color: #ffa600;
+.pane {
+  display: inline-block;
+  overflow-y: scroll;
+  max-height:300px;
+}
+.search {
+  padding: 10px;
+  border: 3px solid #ffa600;
+  width: 20%;
+  margin: auto;
+  margin-top: 10px;
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 10px 10px 15px #e0e0e0;
 }
 
 /* Login.css */
 
-.loginclose {
-  background: #2a6496;
-  color: #fff;
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  padding: 6px 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
 label {
   display: block;
   margin-top: 20px;
