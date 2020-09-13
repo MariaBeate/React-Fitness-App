@@ -20,6 +20,7 @@ export default class FitnessplanAdmin extends Component {
       title: "",
 
       calendarWeekends: true,
+      centered: false,
       allDay: true,
       calendarEvents: [
         // initial event data
@@ -81,7 +82,7 @@ export default class FitnessplanAdmin extends Component {
   render() {
     return (
       <div className="fitnessplan">
-        <Modal isOpen={this.state.modal} className="modal">
+        <Modal isOpen={this.state.modal} className="modal" size="xl" centered={true}>
           <ModalHeader className="modal-header">
             <p>Kurs bearbeiten</p>
           </ModalHeader>
@@ -158,6 +159,7 @@ export default class FitnessplanAdmin extends Component {
             dateClick={this.handleDateClick}
             onDelete={this.handleDelete}
             eventClick={this.handleEventClick}
+            displayEventTime= {false}
             height="parent"
           />
         </div>

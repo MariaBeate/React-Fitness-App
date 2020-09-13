@@ -161,18 +161,26 @@ table#info tr:nth-child(even) {
   border: 3px solid #ffa600;
   background-color: #ffffff;
   position: fixed;
-  top: 50px;
-  left: 50px;
-  right: 50px;
-  bottom: 250px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+
 }
 .modal-header,
 .modal-footer,
 .modal-body {
-  padding: 3px 210px;
+  text-align: center;
 }
 .modal-header {
   font-size: 200%;
+}
+.modal-xl {
+  width: 940;
+  height: 300;
+
+
+
+
 }
 .mrg {
   margin-top: 20px;
