@@ -16,16 +16,22 @@ export default class AddCourse extends Component {
         price: "",
         description: "",
         submitted: false,
+        en: this.props.en,
       },
     };
   }
 
-  componentDidMount() {}
+  componentDidUpdate(prevProps) {
+    if (prevProps.en !== this.props.en) {
+      this.setState({ en: this.props.en });
+    }
+  }
   onChangeName(e) {
     this.setState({
       title: e.target.value,
     });
   }
+
   onChangePrice(e) {
     this.setState({
       price: e.target.value,
@@ -56,51 +62,100 @@ export default class AddCourse extends Component {
   }
 
   render() {
-    return (
-      <div className="form">
-        <div className="heading">Füge einen Kurs hinzu:</div>
-        <div className="form-group">
-          <label htmlFor="title">Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="title"
-            required
-            onChange={this.onChangeName}
-            name="title"
-          />
-        </div>
+    if (!this.state.en) {
+      return (
+        <div className="form">
+          <div className="heading">Füge einen Kurs hinzu:</div>
+          <div className="form-group">
+            <label htmlFor="title">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              required
+              onChange={this.onChangeName}
+              name="title"
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="price">Preis</label>
-          <input
-            type="number"
-            className="form-control"
-            id="preis"
-            required
-            onChange={this.onChangePrice}
-            name="price"
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="price">Preis</label>
+            <input
+              type="number"
+              className="form-control"
+              id="preis"
+              required
+              onChange={this.onChangePrice}
+              name="price"
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="description">Beschreibung</label>
-          <input
-            type="text"
-            className="form-control"
-            id="description"
-            required
-            onChange={this.onChangeDescription}
-            name="description"
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="description">Beschreibung</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              required
+              onChange={this.onChangeDescription}
+              name="description"
+            />
+          </div>
 
-        <Link to="/FitnessInfoAdmin">
-          <button onClick={this.handleSubmit} className="button add add2">
-            Submit
-          </button>
-        </Link>
-      </div>
-    );
+          <Link to="/FitnessInfoAdmin">
+            <button onClick={this.handleSubmit} className="button add add2">
+              Hinzufügen
+            </button>
+          </Link>
+        </div>
+      );
+    } else {
+      return (
+        <div className="form">
+          <div className="heading">Add a course:</div>
+          <div className="form-group">
+            <label htmlFor="title">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              required
+              onChange={this.onChangeName}
+              name="title"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="price">Price</label>
+            <input
+              type="number"
+              className="form-control"
+              id="preis"
+              required
+              onChange={this.onChangePrice}
+              name="price"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              required
+              onChange={this.onChangeDescription}
+              name="description"
+            />
+          </div>
+
+          <Link to="/FitnessInfoAdmin">
+            <button onClick={this.handleSubmit} className="button add add2">
+              Add
+            </button>
+          </Link>
+        </div>
+      );
+    }
   }
 }

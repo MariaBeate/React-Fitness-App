@@ -17,6 +17,7 @@ export default class EditCourseDate extends Component {
         date: "",
         title: "",
       },
+      en: this.props.en,
     };
   }
 
@@ -35,15 +36,28 @@ export default class EditCourseDate extends Component {
         let coursesFromApi = data.map((course) => {
           return { value: course.title, display: course.title };
         });
-        this.setState({
-          courses: [{ title: "", display: "Wähle einen Kurs" }].concat(
-            coursesFromApi
-          ),
-        });
+        if (!this.state.en) {
+          this.setState({
+            courses: [{ title: "", display: "Wähle einen Kurs" }].concat(
+              coursesFromApi
+            ),
+          });
+        } else {
+          this.setState({
+            courses: [{ title: "", display: "Select a course" }].concat(
+              coursesFromApi
+            ),
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.en !== this.props.en) {
+      this.setState({ en: this.props.en });
+    }
   }
 
   onChangeCourseDate(e) {
@@ -74,55 +88,108 @@ export default class EditCourseDate extends Component {
 
   render() {
     console.log(this.state.courses);
-    return (
-      <div className="form">
-        <div className="heading">Kurs bearbeiten:</div>
-        <div className="form-group">
-          <label htmlFor="date">StartDatum</label>
-          <input
-            type="date"
-            className="form-control"
-            id="datum"
-            defaultValue={this.props.location.state.date}
-            onChange={this.onChangeCourseDate}
-            name="date"
-          />
-        </div>
-        <div>
-          <select
-            className="selectField"
-            //value={this.state.selectedCourse}
-            defaultValue={this.props.location.state.name}
-            onChange={(e) =>
-              this.setState({
-                selectedCourse: e.target.value,
-                validationError:
-                  e.target.value === "" ? "Wähle einen Kurs aus" : "",
-              })
-            }
-          >
-            {this.state.courses.map((course, index) => (
-              <option key={index} value={course.title}>
-                {course.display}
-              </option>
-            ))}
-          </select>
-          <div style={{ color: "red", marginTop: "5px" }}>
-            {this.state.validationError}
+    if (!this.state.en) {
+      return (
+        <div className="form">
+          <div className="heading">Kurs bearbeiten:</div>
+          <div className="form-group">
+            <label htmlFor="date">StartDatum</label>
+            <input
+              type="date"
+              className="form-control"
+              id="datum"
+              defaultValue={this.props.location.state.date}
+              onChange={this.onChangeCourseDate}
+              name="date"
+            />
           </div>
-        </div>
+          <div>
+            <select
+              className="selectField"
+              //value={this.state.selectedCourse}
+              defaultValue={this.props.location.state.name}
+              onChange={(e) =>
+                this.setState({
+                  selectedCourse: e.target.value,
+                  validationError:
+                    e.target.value === "" ? "Wähle einen Kurs aus" : "",
+                })
+              }
+            >
+              {this.state.courses.map((course, index) => (
+                <option key={index} value={course.title}>
+                  {course.display}
+                </option>
+              ))}
+            </select>
+            <div style={{ color: "red", marginTop: "5px" }}>
+              {this.state.validationError}
+            </div>
+          </div>
 
-        <Link to="/FitnessPlanAdmin">
-          <Button
-            className="button add add2"
-            variant="danger"
-            type="submit"
-            onClick={() => this.onSubmit()}
-          >
-            Update Kurs
-          </Button>
-        </Link>
-      </div>
-    );
+          <Link to="/FitnessPlanAdmin">
+            <Button
+              className="button add add2"
+              variant="danger"
+              type="submit"
+              onClick={() => this.onSubmit()}
+            >
+              Bearbeiten
+            </Button>
+          </Link>
+        </div>
+      );
+    } else {
+      return (
+        <div className="form">
+          <div className="heading">Edit Course:</div>
+          <div className="form-group">
+            <label htmlFor="date">StartDate</label>
+            <input
+              type="date"
+              className="form-control"
+              id="datum"
+              defaultValue={this.props.location.state.date}
+              onChange={this.onChangeCourseDate}
+              name="date"
+            />
+          </div>
+          <div>
+            <select
+              className="selectField"
+              //value={this.state.selectedCourse}
+              defaultValue={this.props.location.state.name}
+              onChange={(e) =>
+                this.setState({
+                  selectedCourse: e.target.value,
+                  validationError:
+                    e.target.value === "" ? "Select a course" : "",
+                })
+              }
+            >
+              {this.state.courses.map((course, index) => (
+                <option key={index} value={course.title}>
+                  {course.display}
+                </option>
+              ))}
+            </select>
+            <div style={{ color: "red", marginTop: "5px" }}>
+              {this.state.validationError}
+            </div>
+          </div>
+
+          <Link to="/FitnessPlanAdmin">
+            <Button
+              className="button add add2"
+              variant="danger"
+              type="submit"
+              onClick={() => this.onSubmit()}
+            >
+              Edit
+            </Button>
+          </Link>
+        </div>
+      );
+    }
   }
 }

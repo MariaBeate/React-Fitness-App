@@ -9,8 +9,9 @@ export default class FitnessInfoAdmin extends Component {
 
     this.state = {
       courses: [],
+      en: this.props.en,
 
-      response: {},
+      //response: {},
     };
   }
 
@@ -20,6 +21,11 @@ export default class FitnessInfoAdmin extends Component {
       .then((courses) => {
         this.setState({ courses: courses });
       });
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.en !== this.props.en) {
+      this.setState({ en: this.props.en });
+    }
   }
 
   deleteCourse(id) {
@@ -45,67 +51,130 @@ export default class FitnessInfoAdmin extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="heading">
-          Kursplan
-          <div className="heading sub">
-            Um einen neuen Kurs hinzuzufügen, klicke hier:
+    if (!this.state.en) {
+      return (
+        <div>
+          <div className="heading">
+            Kursplan
+            <div className="heading sub">
+              Um einen neuen Kurs hinzuzufügen, klicke hier:
+            </div>
+            <div>
+              <Link className="create-link" to={"/AddCourse"}>
+                <Button className="button add">Hinzufügen</Button>
+              </Link>
+            </div>
           </div>
-          <div>
-            <Link className="create-link" to={"/AddCourse"}>
-              <Button className="button add">Add</Button>
-            </Link>
-          </div>
-        </div>
-        <table id="info">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Preis</th>
-              <th>Beschreibung</th>
-              <th colSpan="2">Bearbeiten</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.courses.map((course) => (
-              <tr key={course.id}>
-                <td>{course.title} </td>
-                <td>{course.price} € </td>
-                <td> {course.description}</td>
-                <td>
-                  <div className="last-column">
-                    <Button
-                      className="button delete"
-                      variant="danger"
-                      onClick={() => this.deleteCourse(course.id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </td>
-                <td>
-                  <div className="last-column">
-                    <Link
-                      className="edit-link"
-                      to={{
-                        pathname: "/EditCourse/" + course.id,
-                        state: {
-                          name: course.title,
-                          price: course.price,
-                          description: course.description,
-                        },
-                      }}
-                    >
-                      <Button className="button edit">Edit</Button>
-                    </Link>
-                  </div>
-                </td>
+          <table id="info">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Preis</th>
+                <th>Beschreibung</th>
+                <th colSpan="2">Bearbeiten</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+            </thead>
+            <tbody>
+              {this.state.courses.map((course) => (
+                <tr key={course.id}>
+                  <td>{course.title} </td>
+                  <td>{course.price} € </td>
+                  <td> {course.description}</td>
+                  <td>
+                    <div className="last-column">
+                      <Button
+                        className="button delete"
+                        variant="danger"
+                        onClick={() => this.deleteCourse(course.id)}
+                      >
+                        Löschen
+                      </Button>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="last-column">
+                      <Link
+                        className="edit-link"
+                        to={{
+                          pathname: "/EditCourse/" + course.id,
+                          state: {
+                            name: course.title,
+                            price: course.price,
+                            description: course.description,
+                          },
+                        }}
+                      >
+                        <Button className="button edit">Bearbeiten</Button>
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="heading">
+            Course plan
+            <div className="heading sub">Click here to add a new course:</div>
+            <div>
+              <Link className="create-link" to={"/AddCourse"}>
+                <Button className="button add">Add</Button>
+              </Link>
+            </div>
+          </div>
+          <table id="info">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th colSpan="2">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.courses.map((course) => (
+                <tr key={course.id}>
+                  <td>{course.title} </td>
+                  <td>{course.price} € </td>
+                  <td> {course.description}</td>
+                  <td>
+                    <div className="last-column">
+                      <Button
+                        className="button delete"
+                        variant="danger"
+                        onClick={() => this.deleteCourse(course.id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="last-column">
+                      <Link
+                        className="edit-link"
+                        to={{
+                          pathname: "/EditCourse/" + course.id,
+                          state: {
+                            name: course.title,
+                            price: course.price,
+                            description: course.description,
+                          },
+                        }}
+                      >
+                        <Button className="button edit">Edit</Button>
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
   }
 }
