@@ -9,16 +9,30 @@ class Home extends Component {
   }
 
   render() {
-    return (
-      <div className="form">
-        <div className="heading">
-        Willkommen bei FitMo
+    console.log(this.props.en)
+    if (!this.props.en) {
+      return (
+        <div className="form">
+          <div className="heading">
+            Willkommen bei FitMo
         <div className="heading sub">
-        Finde jetzt deinen Fitnesskurs
+              Finde jetzt deinen Fitnesskurs
         </div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="form">
+          <div className="heading">
+            Welcome to FitMo
+        <div className="heading sub">
+              Find your Fitness Course
+        </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

@@ -31,6 +31,7 @@ class App extends Component {
       password: "",
       token: "",
       isLoggedIn: Boolean,
+      en: Boolean,
     };
   }
 
@@ -43,6 +44,20 @@ class App extends Component {
     this.setState({
       password: e.target.value,
     });
+  }
+
+  handleLanguageEN(e) {
+    this.setState({
+      en: true,
+    });
+    console.log(this.state.en);
+  }
+
+  handleLanguageDE(e) {
+    this.setState({
+      en: false,
+    });
+    console.log(this.state.en);
   }
 
   handleLogin() {
@@ -90,32 +105,42 @@ class App extends Component {
       <Router>
         <div>
           <Header
+            handleLanguageEN={this.handleLanguageEN.bind(this)}
+            handleLanguageDE={this.handleLanguageDE.bind(this)}
             isLoggedIn={this.state.isLoggedIn}
             handleLogout={this.handleLogout.bind(this)}
           />
           <div className="wrapper">
             <Switch>
-              <Route exact path="/">
-                <Home />
+              <Route exact path="/"
+                render={(props) => <Home {...props} en={this.state.en} />}>
               </Route>
-              <ProtectedRouteFitnessplan path="/FitnessplanAdmin">
-                <FitnessplanAdmin />
+
+              <ProtectedRouteFitnessplan
+                path="/FitnessplanAdmin"
+                render={(props) => <FitnessplanAdmin {...props} en={this.state.en} />}>
               </ProtectedRouteFitnessplan>
-              <Route exact path="/Fitnessplan">
-                <FitnessplanUser />
+
+              <Route path="/Fitnessplan"
+                render={(props) => <FitnessplanUser {...props} en={this.state.en} />}>
               </Route>
+
               <ProtectedRouteAddDate path="/AddCourseDate">
                 <AddCourseDate />
               </ProtectedRouteAddDate>
+
               <ProtectedRouteEditDate
                 path="/EditCourseDate/:id"
                 render={(props) => <EditCourseDate {...props} />}
               />
-              <ProtectedRouteFitness path="/FitnessInfoAdmin">
+
+              <ProtectedRouteFitness path="/FitnessInfoAdmin"
+                render={(props) => <FitnessInfoAdmin {...props} en={this.state.en} />}>
                 <FitnessInfoAdmin />
               </ProtectedRouteFitness>
-              <Route exact path="/FitnessInfo">
-                <FitnessInfoUser />
+
+              <Route path="/FitnessInfo"
+                render={(props) => <FitnessInfoUser {...props} en={this.state.en} />}>
               </Route>
               <ProtectedRouteAdd path="/AddCourse">
                 <AddCourse />
@@ -124,8 +149,8 @@ class App extends Component {
                 path="/EditCourse/:id"
                 render={(props) => <EditCourse {...props} />}
               />
-              <Route path="/SignUp">
-                <SignUp />
+              <Route path="/SignUp"
+                render={(props) => <SignUp {...props} en={this.state.en} />}>
               </Route>
               <Route path="/Login">
                 <Login

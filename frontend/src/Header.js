@@ -8,11 +8,15 @@ class Header extends Component {
     super(props);
     this.state = {
       isLoggedIn: this.props.isLoggedIn,
+      en: this.props.en, //if true = english rendering
     };
   }
   componentDidUpdate(prevProps) {
     if (prevProps.isLoggedIn !== this.props.isLoggedIn) {
       this.setState({ isLoggedIn: this.props.isLoggedIn });
+    }
+    if (prevProps.en !== this.props.en) {
+      this.setState({ en: this.props.en });
     }
   }
 
@@ -59,6 +63,18 @@ class Header extends Component {
                     Logout
                   </NavLink>
                 </li>
+                <button
+                  //styles= kannst du unten im Stylesheet definieren und dann unter styles.Button hier einfügen
+                  name="EN"
+                  id="EN"
+                  onClick={this.props.handleLanguageEN}
+                >EN</button>
+                <button
+                  //styles=
+                  id="DE"
+                  name="DE"
+                  onClick={this.props.handleLanguageDE}
+                >DE</button>
               </ul>
             </div>
           </div>
@@ -108,6 +124,18 @@ class Header extends Component {
                     Login
                   </NavLink>
                 </li>
+                <button
+                  //styles= kannst du unten im Stylesheet definieren und dann unter styles.Button hier einfügen
+                  name="EN"
+                  id="EN"
+                  onClick={this.props.handleLanguageEN}
+                >EN</button>
+                <button
+                  //styles=
+                  id="DE"
+                  name="DE"
+                  onClick={this.props.handleLanguageDE}
+                >DE</button>
               </ul>
             </div>
           </div>
