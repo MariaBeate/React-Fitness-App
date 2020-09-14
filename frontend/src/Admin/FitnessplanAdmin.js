@@ -90,7 +90,6 @@ export default class FitnessplanAdmin extends Component {
       });
     //this.loadEvents();
     console.log("Deleted");
-    this.toggle();
   }
 
   toggle = () => {
@@ -176,6 +175,7 @@ export default class FitnessplanAdmin extends Component {
                     <tr>
                       <th>Name</th>
                       <th>Datum</th>
+                      <th colSpan="2">Bearbeiten</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -183,6 +183,29 @@ export default class FitnessplanAdmin extends Component {
                       <tr key={course.id}>
                         <td>{course.title} </td>
                         <td>{moment(course.date).format("Do MMM YYYY")} </td>
+                        <td>
+                        <Button
+                        className="button delete"
+                        variant="danger"
+                        onClick={() => this.deleteCourse(course.id)}
+                      >
+                        Löschen
+                      </Button>
+                    </td>
+                    <td>
+                    <Link
+                className="edit-link"
+                to={{
+                  pathname: "/EditCourseDate/" + this.state.id,
+                  state: {
+                    //date: this.state.event.date,
+                    // name: this.state.event.title,
+                  },
+                }}
+              >
+                <Button className="button edit">Bearbeiten</Button>
+              </Link>
+                    </td>
                       </tr>
                     ))}
                   </tbody>
@@ -311,6 +334,7 @@ export default class FitnessplanAdmin extends Component {
                     <tr>
                       <th>Name</th>
                       <th>Date</th>
+                      <th colSpan="2">Edit</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -318,6 +342,29 @@ export default class FitnessplanAdmin extends Component {
                       <tr key={course.id}>
                         <td>{course.title} </td>
                         <td>{moment(course.date).format("Do MMM YYYY")} </td>
+                        <td>
+                        <Button
+                        className="button delete"
+                        variant="danger"
+                        onClick={() => this.deleteCourse(course.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                    <td>
+                    <Link
+                className="edit-link"
+                to={{
+                  pathname: "/EditCourseDate/" + this.state.id,
+                  state: {
+                    //date: this.state.event.date,
+                    // name: this.state.event.title,
+                  },
+                }}
+              >
+                <Button className="button edit">Edit</Button>
+              </Link>
+                    </td>
                       </tr>
                     ))}
                   </tbody>
