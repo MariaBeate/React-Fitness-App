@@ -137,7 +137,8 @@ table#info {
   box-shadow: 10px 10px 15px #e0e0e0;
   display: table;
 }
-table#info th, td {
+table#info th,
+td {
   font-weight: normal;
   text-align: center;
   padding: 0.5em 1em;
@@ -168,10 +169,9 @@ table#info tr:nth-child(even) {
   border: 3px solid #ffa600;
   background-color: #ffffff;
   position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) !important;
-
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
 }
 .modal-header,
 .modal-footer,
@@ -185,14 +185,14 @@ table#info tr:nth-child(even) {
   width: 940;
   height: 300;
 }
-.modal-l{
+.modal-l {
   width: 940;
   height: 550;
 }
 .pane {
   display: inline-block;
   overflow-y: scroll;
-  max-height:300px;
+  max-height: 300px;
 }
 .search {
   padding: 10px;

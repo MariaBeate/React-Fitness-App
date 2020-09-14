@@ -164,6 +164,7 @@ class App extends Component {
                   onChangeUsername={this.onChangeUsername.bind(this)}
                   onChangePassword={this.onChangePassword.bind(this)}
                   isLoggedIn={this.state.isLoggedIn}
+                  en={this.state.en}
                 />
               </Route>
             </Switch>

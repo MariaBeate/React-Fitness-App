@@ -17,7 +17,7 @@ export default class SignUp extends Component {
     };
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
   onChangeUsername(e) {
     this.setState({
       username: e.target.value,
@@ -53,13 +53,11 @@ export default class SignUp extends Component {
   }
 
   render() {
-    console.log(this.props.en)
+    console.log(this.props.en);
     if (!this.props.en) {
       return (
         <div className="form">
-          <div className="heading">
-            Registrierung
-      </div>
+          <div className="heading">Registrierung</div>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
@@ -67,7 +65,6 @@ export default class SignUp extends Component {
               className="form-control"
               id="username"
               required
-              //value={this.state.name}
               onChange={this.onChangeUsername}
               name="username"
             />
@@ -79,7 +76,6 @@ export default class SignUp extends Component {
               className="form-control"
               id="password"
               required
-              //value={this.state.price}
               onChange={this.onChangePassword}
               name="password"
             />
@@ -91,22 +87,19 @@ export default class SignUp extends Component {
               className="form-control"
               id="password_repeat"
               required
-              //value={this.state.description}
               onChange={this.onChangePasswordRepeat}
               name="password_repeat"
             />
           </div>
           <button onClick={this.handleSignUp} className="button success">
             Registrieren
-        </button>
+          </button>
         </div>
       );
     } else {
       return (
         <div className="form">
-          <div className="heading">
-            Register 
-        </div>
+          <div className="heading">Register</div>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
@@ -114,7 +107,6 @@ export default class SignUp extends Component {
               className="form-control"
               id="username"
               required
-              //value={this.state.name}
               onChange={this.onChangeUsername}
               name="username"
             />
@@ -126,7 +118,6 @@ export default class SignUp extends Component {
               className="form-control"
               id="password"
               required
-              //value={this.state.price}
               onChange={this.onChangePassword}
               name="password"
             />
@@ -138,7 +129,6 @@ export default class SignUp extends Component {
               className="form-control"
               id="password_repeat"
               required
-              //value={this.state.description}
               onChange={this.onChangePasswordRepeat}
               name="password_repeat"
             />

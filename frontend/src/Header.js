@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+//import { Button } from "reactstrap";
 import logo from "./assets/images/logo.png";
 import "./style.css";
 
@@ -63,18 +64,12 @@ class Header extends Component {
                     Logout
                   </NavLink>
                 </li>
-                <button
-                  //styles= kannst du unten im Stylesheet definieren und dann unter styles.Button hier einfügen
-                  name="EN"
-                  id="EN"
-                  onClick={this.props.handleLanguageEN}
-                >EN</button>
-                <button
-                  //styles=
-                  id="DE"
-                  name="DE"
-                  onClick={this.props.handleLanguageDE}
-                >DE</button>
+                <button id="EN" name="EN" onClick={this.props.handleLanguageEN}>
+                  EN
+                </button>
+                <button id="DE" name="DE" onClick={this.props.handleLanguageDE}>
+                  DE
+                </button>
               </ul>
             </div>
           </div>
@@ -124,18 +119,12 @@ class Header extends Component {
                     Login
                   </NavLink>
                 </li>
-                <button
-                  //styles= kannst du unten im Stylesheet definieren und dann unter styles.Button hier einfügen
-                  name="EN"
-                  id="EN"
-                  onClick={this.props.handleLanguageEN}
-                >EN</button>
-                <button
-                  //styles=
-                  id="DE"
-                  name="DE"
-                  onClick={this.props.handleLanguageDE}
-                >DE</button>
+                <button id="EN" name="EN" onClick={this.props.handleLanguageEN}>
+                  EN
+                </button>
+                <button id="DE" name="DE" onClick={this.props.handleLanguageDE}>
+                  DE
+                </button>
               </ul>
             </div>
           </div>
