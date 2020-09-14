@@ -4,6 +4,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "../assets/css/Fitnessplan.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import moment from "moment";
 
 function searchingFor(search) {
   return function (x) {
@@ -23,7 +25,7 @@ export default class FitnessplanUser extends Component {
         id: "",
         date: "",
         title: "",
-
+        showModal1: false,
         response: {},
       },
       calendarWeekends: true,
@@ -51,32 +53,74 @@ export default class FitnessplanUser extends Component {
     if (!this.props.en) {
       return (
         <div className="fitnessplan">
+        <Modal
+            isOpen={this.state.showModal1}
+            className="mondal"
+            size="l"
+            centered={true}
+          >
+            <ModalHeader className="modal-header">
+              <p>Kurs suchen</p>
+              <div className="searchFilter">
+                <form>
+                  <input
+                    type="text"
+                    className="search"
+                    onChange={this.searchHandler}
+                    value={search}
+                    placeholder="suche..."
+                  />
+                </form>
+              </div>
+            </ModalHeader>
+            <ModalBody className="modal-body">
+              <div className="pane">
+                <table id="info">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Datum</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courses.filter(searchingFor(search)).map((course) => (
+                      <tr key={course.id}>
+                        <td>{course.title} </td>
+                        <td>{moment(course.date).format("Do MMM YYYY")} </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </ModalBody>
+            <ModalFooter className="modal-footer">
+              <button
+                className="button add mrg"
+                onClick={() => this.setState({ showModal1: false })}
+              >
+                Schließen
+              </button>
+            </ModalFooter>
+          </Modal>
           <div className="heading">
             Kursplan
+          </div>
           <div>
-              <button onClick={this.toggleWeekends} className="button add mrg">
-                Ohne Wochenenden
-            </button>
-            &nbsp;
-          </div>
-            <div className="searchFilter">
-              <form>
-                <input type="text"
-                  onChange={this.searchHandler}
-                  value={search}
-                  placeholder="Kurs suchen"
-                />
-              </form>
+              <button
+                className="button add"
+                onClick={() => this.setState({ showModal1: true })}
+              >
+                Kurs suchen
+              </button>
             </div>
-          </div>
-
+          
           <div className="fitness-calendar">
             <FullCalendar
               defaultView="dayGridMonth"
               header={{
                 left: "prev,next today",
                 center: "title",
-                right: "dayGridMonth,dayGridWeek,listWeek",
+                right: "dayGridMonth,dayGridWeek",
               }}
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               ref={this.calendarComponentRef}
@@ -84,15 +128,6 @@ export default class FitnessplanUser extends Component {
               events={this.state.courses}
               eventRender={this.customEventRender}
             />
-
-            <tbody>
-              {courses.filter(searchingFor(search)).map((event) => (
-                <tr key={event.id}>
-                  <td>{event.title} </td>
-                  <td>{event.date} </td>
-                </tr>
-              ))}
-            </tbody>
           </div>
 
         </div>
@@ -100,24 +135,66 @@ export default class FitnessplanUser extends Component {
     } else {
       return (
         <div className="fitnessplan">
+           <Modal
+            isOpen={this.state.showModal1}
+            className="mondal"
+            size="l"
+            centered={true}
+          >
+            <ModalHeader className="modal-header">
+              <p>Search for a course</p>
+              <div className="searchFilter">
+                <form>
+                  <input
+                    type="text"
+                    className="search"
+                    onChange={this.searchHandler}
+                    value={search}
+                    placeholder="search..."
+                  />
+                </form>
+              </div>
+            </ModalHeader>
+            <ModalBody className="modal-body">
+              <div className="pane">
+                <table id="info">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courses.filter(searchingFor(search)).map((course) => (
+                      <tr key={course.id}>
+                        <td>{course.title} </td>
+                        <td>{moment(course.date).format("Do MMM YYYY")} </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </ModalBody>
+            <ModalFooter className="modal-footer">
+              <button
+                className="button add mrg"
+                onClick={() => this.setState({ showModal1: false })}
+              >
+                Close
+              </button>
+            </ModalFooter>
+          </Modal>
           <div className="heading">
-            Course Table
+              Course schedule
+          </div>
           <div>
-              <button onClick={this.toggleWeekends} className="button add mrg">
-                Without Weekends
-            </button>
-            &nbsp;
-          </div>
-            <div className="searchFilter">
-              <form>
-                <input type="text"
-                  onChange={this.searchHandler}
-                  value={search}
-                  placeholder="Search Course"
-                />
-              </form>
+              <button
+                className="button add"
+                onClick={() => this.setState({ showModal1: true })}
+              >
+                Search for a course
+              </button>
             </div>
-          </div>
 
           <div className="fitness-calendar">
             <FullCalendar
@@ -125,7 +202,7 @@ export default class FitnessplanUser extends Component {
               header={{
                 left: "prev,next today",
                 center: "title",
-                right: "dayGridMonth,dayGridWeek,listWeek",
+                right: "dayGridMonth,dayGridWeek",
               }}
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               ref={this.calendarComponentRef}
@@ -133,15 +210,6 @@ export default class FitnessplanUser extends Component {
               events={this.state.courses}
               eventRender={this.customEventRender}
             />
-
-            <tbody>
-              {courses.filter(searchingFor(search)).map((event) => (
-                <tr key={event.id}>
-                  <td>{event.title} </td>
-                  <td>{event.date} </td>
-                </tr>
-              ))}
-            </tbody>
           </div>
 
         </div>
@@ -157,10 +225,4 @@ export default class FitnessplanUser extends Component {
     return info.el
   };
 
-  toggleWeekends = () => {
-    this.setState({
-      // update a property
-      calendarWeekends: !this.state.calendarWeekends,
-    });
-  };
 }

@@ -55,13 +55,13 @@ export default class FitnessInfoAdmin extends Component {
       return (
         <div>
           <div className="heading">
-            Kursplan
+            Kurse
             <div className="heading sub">
               Um einen neuen Kurs hinzuzufügen, klicke hier:
             </div>
             <div>
               <Link className="create-link" to={"/AddCourse"}>
-                <Button className="button add">Hinzufügen</Button>
+                <Button className="button add">Kurs hinzufügen</Button>
               </Link>
             </div>
           </div>
@@ -118,11 +118,11 @@ export default class FitnessInfoAdmin extends Component {
       return (
         <div>
           <div className="heading">
-            Course plan
+            Courses
             <div className="heading sub">Click here to add a new course:</div>
             <div>
               <Link className="create-link" to={"/AddCourse"}>
-                <Button className="button add">Add</Button>
+                <Button className="button add">Add Course</Button>
               </Link>
             </div>
           </div>

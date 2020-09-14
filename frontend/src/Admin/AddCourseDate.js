@@ -80,7 +80,7 @@ export default class AddCourseDate extends Component {
         <div className="form">
           <div className="heading">Füge einen Kurs hinzu:</div>
           <div className="form-group">
-            <label htmlFor="date">StartDatum</label>
+            <label htmlFor="date">Datum</label>
             <input
               type="date"
               className="form-control"
@@ -125,7 +125,7 @@ export default class AddCourseDate extends Component {
         <div className="form">
           <div className="heading">Add a course:</div>
           <div className="form-group">
-            <label htmlFor="date">Startdate</label>
+            <label htmlFor="date">Date</label>
             <input
               type="date"
               className="form-control"
@@ -143,7 +143,7 @@ export default class AddCourseDate extends Component {
                 this.setState({
                   selectedCourse: e.target.value,
                   validationError:
-                    e.target.value === "" ? "Select a a course" : "",
+                    e.target.value === "" ? "Select a course" : "",
                 })
               }
             >

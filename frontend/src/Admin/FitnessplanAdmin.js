@@ -97,10 +97,6 @@ export default class FitnessplanAdmin extends Component {
     this.setState({ modal: !this.state.modal });
   };
 
-  handleModalClick = () => {
-    this.toggle();
-  };
-
   handleEventClick = ({ event }) => {
     this.toggle();
     const date = event.start.toISOString().substr(0, 10);
@@ -124,7 +120,7 @@ export default class FitnessplanAdmin extends Component {
             <ModalBody className="modal-body">
               <div>
                 <p> Kursname: {this.state.title} </p>
-                <p> Datum: {this.state.date} </p>
+                <p> Datum: {moment(this.state.date).format("Do MMM YYYY")} </p>
               </div>
             </ModalBody>
             <ModalFooter className="modal-footer">
@@ -138,7 +134,7 @@ export default class FitnessplanAdmin extends Component {
                   },
                 }}
               >
-                <Button className="button edit mrg">Edit</Button>
+                <Button className="button edit mrg">Bearbeiten</Button>
               </Link>
               <Button
                 className="button delete mrg"
@@ -168,7 +164,7 @@ export default class FitnessplanAdmin extends Component {
                     className="search"
                     onChange={this.searchHandler}
                     value={search}
-                    placeholder="Kurs suchen"
+                    placeholder="suche..."
                   />
                 </form>
               </div>
@@ -206,13 +202,7 @@ export default class FitnessplanAdmin extends Component {
           <div className="heading">
             Kursplan
             <div className="heading sub">
-              Klicke auf ein Datum, um einen neuen Kurs hinzuzufügen
-            </div>
-            <div>
-              <button onClick={this.toggleWeekends} className="button add">
-                Wochenenden ein-/ausblenden
-              </button>
-              &nbsp;
+              Klicke zum Bearbeiten auf einen Kurs
             </div>
             <div>
               <Link className="create-link" to={"/AddCourseDate"}>
@@ -235,18 +225,11 @@ export default class FitnessplanAdmin extends Component {
               header={{
                 left: "prev,next today",
                 center: "title",
-                right: "dayGridMonth,dayGridWeek,listWeek",
+                right: "dayGridMonth,dayGridWeek",
               }}
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              // editable={true}  //change length of event by dragging the event down. Change day of event by dragging
-              // eventContent={this.renderEventContent}
-              // eventDrop={this.handleEventDrop}
-              // eventClick={this.handleEventClick}
-              // select={this.handleDateSelect}
-              //eventClick = {function(calendarEvents, jsEvent, view, resourceObj) {alert(courses.name)}}
               ref={this.calendarComponentRef}
               weekends={this.state.calendarWeekends}
-              //events={this.state.calendarEvents}
               events={this.state.courses}
               dateClick={this.handleDateClick}
               onDelete={this.handleDelete}
@@ -272,7 +255,7 @@ export default class FitnessplanAdmin extends Component {
             <ModalBody className="modal-body">
               <div>
                 <p> Course name: {this.state.title} </p>
-                <p> Date: {this.state.date} </p>
+                <p> Date: {moment(this.state.date).format("Do MMM YYYY")} </p>
               </div>
             </ModalBody>
             <ModalFooter className="modal-footer">
@@ -316,7 +299,7 @@ export default class FitnessplanAdmin extends Component {
                     className="search"
                     onChange={this.searchHandler}
                     value={search}
-                    placeholder="Search for a course"
+                    placeholder="search..."
                   />
                 </form>
               </div>
@@ -352,19 +335,13 @@ export default class FitnessplanAdmin extends Component {
           </Modal>
 
           <div className="heading">
-            Course Plan
+            Course schedule
             <div className="heading sub">
-              Click on a Date to add a new course
-            </div>
-            <div>
-              <button onClick={this.toggleWeekends} className="button add">
-                Show/Hide Weekends
-              </button>
-              &nbsp;
+              Click on a course for editing
             </div>
             <div>
               <Link className="create-link" to={"/AddCourseDate"}>
-                <Button className="button add">Add Course</Button>
+                <Button className="button add">Add a course</Button>
               </Link>
             </div>
             <div>
@@ -383,20 +360,12 @@ export default class FitnessplanAdmin extends Component {
               header={{
                 left: "prev,next today",
                 center: "title",
-                right: "dayGridMonth,dayGridWeek,listWeek",
+                right: "dayGridMonth,dayGridWeek",
               }}
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              // editable={true}  //change length of event by dragging the event down. Change day of event by dragging
-              // eventContent={this.renderEventContent}
-              // eventDrop={this.handleEventDrop}
-              // eventClick={this.handleEventClick}
-              // select={this.handleDateSelect}
-              //eventClick = {function(calendarEvents, jsEvent, view, resourceObj) {alert(courses.name)}}
               ref={this.calendarComponentRef}
               weekends={this.state.calendarWeekends}
-              //events={this.state.calendarEvents}
               events={this.state.courses}
-              dateClick={this.handleDateClick}
               onDelete={this.handleDelete}
               eventClick={this.handleEventClick}
               displayEventTime={false}
@@ -407,33 +376,4 @@ export default class FitnessplanAdmin extends Component {
       );
     }
   }
-
-  toggleWeekends = () => {
-    this.setState({
-      // update a property
-      calendarWeekends: !this.state.calendarWeekends,
-    });
-  };
-
-  gotoPast = () => {
-    let calendarApi = this.calendarComponentRef.current.getApi();
-    calendarApi.gotoDate("2020-01-01"); // call a method on the Calendar object
-  };
-
-  handleDateClick = (arg) => {
-    if (
-      window.confirm("Would you like to add an event to " + arg.dateStr + " ?")
-    ) {
-      this.setState({
-        // add new event data
-        courses: this.state.courses.concat({
-          // creates a new array
-          title: "New Event",
-          start: arg.date,
-          end: "2020-09-19",
-          allDay: arg.allDay,
-        }),
-      });
-    }
-  };
 }

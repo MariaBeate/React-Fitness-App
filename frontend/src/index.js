@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import Header from "./Header";
 import Home from "./Home";
 import FitnessplanAdmin from "./Admin/FitnessplanAdmin";
@@ -80,12 +79,21 @@ class App extends Component {
           token: token,
         });
         localStorage.setItem("token", this.state.token);
-        if (token != null)
+        if (token != null) {
           this.setState({
             isLoggedIn: true,
           });
-        // history.push("/FitnessInfoAdmin");
-        console.log("Eingeloggt");
+          console.log("Eingeloggt");
+        } else if (!this.state.en) {
+          console.log("Nicht geklappt");
+          alert(
+            "Benutzername oder Passwort falsch,\nBitte erneut versuchen",
+          );
+        } else {
+          alert(
+            "Username or password is incorrect,\nPlease try again",
+          );
+        }
       })
 
       .catch((err) => console.log(err));

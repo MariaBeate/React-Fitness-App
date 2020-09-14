@@ -64,12 +64,16 @@ class Header extends Component {
                     Logout
                   </NavLink>
                 </li>
-                <button id="EN" name="EN" onClick={this.props.handleLanguageEN}>
+                <li>
+                <button className="button-lang left" id="EN" onClick={this.props.handleLanguageEN}>
                   EN
                 </button>
-                <button id="DE" name="DE" onClick={this.props.handleLanguageDE}>
+                </li>
+                <li>
+                <button className="button-lang" id="DE" onClick={this.props.handleLanguageDE}>
                   DE
                 </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -119,12 +123,16 @@ class Header extends Component {
                     Login
                   </NavLink>
                 </li>
-                <button id="EN" name="EN" onClick={this.props.handleLanguageEN}>
+                <li>
+                <button className="button-lang left" id="EN" onClick={this.props.handleLanguageEN}>
                   EN
                 </button>
-                <button id="DE" name="DE" onClick={this.props.handleLanguageDE}>
+                </li>
+                <li>
+                <button className="button-lang" id="DE" onClick={this.props.handleLanguageDE}>
                   DE
                 </button>
+                </li>
               </ul>
             </div>
           </div>

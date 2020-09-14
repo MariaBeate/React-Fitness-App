@@ -27,7 +27,7 @@ class Home extends Component {
           <div className="heading">
             Welcome to FitMo
         <div className="heading sub">
-              Find your Fitness Course
+              Find your fitness class now
         </div>
           </div>
         </div>

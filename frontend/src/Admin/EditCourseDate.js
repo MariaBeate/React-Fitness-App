@@ -93,7 +93,7 @@ export default class EditCourseDate extends Component {
         <div className="form">
           <div className="heading">Kurs bearbeiten:</div>
           <div className="form-group">
-            <label htmlFor="date">StartDatum</label>
+            <label htmlFor="date">Datum</label>
             <input
               type="date"
               className="form-control"
@@ -144,7 +144,7 @@ export default class EditCourseDate extends Component {
         <div className="form">
           <div className="heading">Edit Course:</div>
           <div className="form-group">
-            <label htmlFor="date">StartDate</label>
+            <label htmlFor="date">Date</label>
             <input
               type="date"
               className="form-control"

@@ -37,12 +37,13 @@ export default class FitnessInfoUser extends Component {
         return (
           <div>
             <div className="heading">
-              Kursplan
+              Kurse
       </div>
 
             <div className="searchFilter">
               <form>
                 <input type="text"
+                  className="search"
                   onChange={this.searchHandler}
                   value={search}
                   placeholder="Kurs suchen"
@@ -61,7 +62,7 @@ export default class FitnessInfoUser extends Component {
                 {courses.filter(searchingFor(search)).map((course) => (
                   <tr key={course.id}>
                     <td>{course.title} </td>
-                    <td>{course.price}</td>
+                    <td>{course.price}€</td>
                     <td>{course.description}</td>
                   </tr>
                 ))}
@@ -74,14 +75,15 @@ export default class FitnessInfoUser extends Component {
         return (
           <div>
             <div className="heading">
-              Kursplan
-            <div className="searchFilter">
+              Kurse
+              <div className="searchFilter">
                 <form>
-                  <input type="text"
+                  <input
+                    type="text"
+                    className="search"
                     onChange={this.searchHandler}
                     value={search}
-                    placeholder="Search Course"
-
+                    placeholder="Kurs suchen"
                   />
                 </form>
               </div>
@@ -99,7 +101,7 @@ export default class FitnessInfoUser extends Component {
                 {courses.filter(searchingFor(search)).map((course) => (
                   <tr key={course.id}>
                     <td>{course.title} </td>
-                    <td>{course.price}</td>
+                    <td>{course.price}€</td>
                     <td>{course.description}</td>
                   </tr>
                 ))}
@@ -114,14 +116,15 @@ export default class FitnessInfoUser extends Component {
         return (
           <div>
             <div className="heading">
-              Course Table
+              Courses
     </div>
             <div className="searchFilter">
               <form>
                 <input type="text"
+                  className="search"
                   onChange={this.searchHandler}
                   value={search}
-                  placeholder="Search Course"
+                  placeholder="Search for course"
                 />
               </form>
             </div>
@@ -137,7 +140,7 @@ export default class FitnessInfoUser extends Component {
                 {courses.filter(searchingFor(search)).map((course) => (
                   <tr key={course.id}>
                     <td>{course.title} </td>
-                    <td>{course.price}</td>
+                    <td>{course.price}€</td>
                     <td>{course.description}</td>
                   </tr>
                 ))}
@@ -150,13 +153,13 @@ export default class FitnessInfoUser extends Component {
         return (
           <div>
             <div className="heading">
-              Course Table
+              Courses
           <div className="searchFilter">
                 <form>
                   <input type="text"
                     onChange={this.searchHandler}
                     value={search}
-                    placeholder="Kurs suchen"
+                    placeholder="Search for course"
 
                   />
                 </form>
@@ -175,7 +178,7 @@ export default class FitnessInfoUser extends Component {
                 {courses.filter(searchingFor(search)).map((course) => (
                   <tr key={course.id}>
                     <td>{course.title} </td>
-                    <td>{course.price}</td>
+                    <td>{course.price}€</td>
                     <td>{course.description}</td>
                   </tr>
                 ))}
